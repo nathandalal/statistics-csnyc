@@ -10,6 +10,7 @@ const config = require('../config')
 
 var availableRoutes = [
     {
+        title: 'Hello World!',
         routename: '/helloworld',
         methods: ["GET"],
         description: "Example of how to set up an Express API in a separate router file."
@@ -18,6 +19,7 @@ var availableRoutes = [
 
 router.get('/', (req, res) => {
     res.render('pages/api-entry', {
+        appname: config.APPNAME,
         routes: availableRoutes
     })
 })

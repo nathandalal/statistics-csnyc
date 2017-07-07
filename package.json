@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"No tests are currently available.\"",
-    "dev": "node app.js",
+    "dev": "nodemon app.js",
     "start": "node app.js"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "nunjucks": "^3.0.1"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0"
   }
 }

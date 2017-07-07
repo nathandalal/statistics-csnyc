@@ -1,10 +1,10 @@
 const express = require('express')
 const engines = require('consolidate')
+const config = require('./config')
 
 const apiRoutes = require('./api/index')
 
 const app = express()
-const port = process.env.PORT || 7777
 
 app.use('/api', apiRoutes)
 
@@ -14,11 +14,11 @@ app.set('views', __dirname + '/views')
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-    res.render('pages/index', {
-        
+    res.render('pages/template_design', {
+		appname: config.APPNAME
     })
 })
 
-app.listen(port, function () {
-  console.log(`Application listening on port ${port}.`)
+app.listen(config.PORT, function () {
+  console.log(`Application listening on port ${config.PORT}.`)
 })
