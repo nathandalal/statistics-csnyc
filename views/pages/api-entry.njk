@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.njk" %}
+    <title>API Entry Point</title>
+</head>
+<body style="padding:5%;">
+    <p>
+        Welcome to the API for this application.
+        This is a JSON API with routes listed below.
+    </p>
+    <ul>
+        {% for route in routes %}
+        <li>
+        	<a href="/api{{route.routename}}"><strong>{{ route.routename }}</strong></a><br />
+        	Methods Defined: {{ route.methods.join(", ") }}<br />
+        	{{ route.description }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

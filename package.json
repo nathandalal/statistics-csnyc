@@ -1,0 +1,38 @@
+{
+  "name": "statistics-csnyc",
+  "version": "1.0.0",
+  "description": "Project with MongoDB and CSNYC to develop a computer-science based statistics lesson on mean, median, and mode.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"No tests are currently available.\"",
+    "dev": "node app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathandalal/statistics-csnyc.git"
+  },
+  "keywords": [
+    "statistics",
+    "mean",
+    "median",
+    "mode",
+    "csnyc",
+    "api"
+  ],
+  "author": "Nathan Dalal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathandalal/statistics-csnyc/issues"
+  },
+  "homepage": "https://github.com/nathandalal/statistics-csnyc#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "consolidate": "^0.14.5",
+    "express": "^4.15.3",
+    "nunjucks": "^3.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
+  }
+}
