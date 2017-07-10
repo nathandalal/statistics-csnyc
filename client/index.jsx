@@ -22,13 +22,15 @@ class Index extends React.Component {
       { path: "/realdata",   name: "Using Live Data",  icon: "area-chart",        component: RealData }
     ]
 
+    console.log(this.props.location)
+
     return (
       <Router>
         <div>
           {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name} />)}
           <div className="bottom-footer tabs is-centered"><ul>
             {routes.map(route => (
-              <li key={route.name}>
+              <li key={route.name} className={`${window.location.pathname == route.path ? "is-active" : ""}`}>
                 <Link to={route.path}>
                   <span className="icon is-small"><i className={`fa fa-${route.icon}`}></i></span>
                   <span>{route.name}</span>
