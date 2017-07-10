@@ -13,16 +13,10 @@ app.set('view engine', 'njk')
 app.set('views', __dirname + '/views')
 app.use(express.static('public'))
 
-app.get('/reactdemo', (req, res) => {
-    res.render('pages/react-template', {
-		appname: config.APPNAME
-    })
-})
-
 app.get('*', (req, res) => {
-    res.render('pages/template_design', {
+  res.render('pages/react-template', {
 		appname: config.APPNAME
-    })
+  })
 })
 
 app.listen(config.PORT, function () {

@@ -4,8 +4,8 @@
   "description": "Project with MongoDB and CSNYC to develop a computer-science based statistics lesson on mean, median, and mode.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"No tests are currently available.\"",
-    "dev": "./node_modules/.bin/webpack -d --watch & nodemon app.js",
+    "test": "node test/test.js",
+    "dev": "nodemon app.js | ./node_modules/.bin/webpack -d --watch || true",
     "build": "./node_modules/.bin/webpack -p",
     "start": "node app.js"
   },
@@ -28,12 +28,14 @@
   },
   "homepage": "https://github.com/nathandalal/statistics-csnyc#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "consolidate": "^0.14.5",
     "express": "^4.15.3",
     "nunjucks": "^3.0.1",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

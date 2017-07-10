@@ -1,4 +1,11 @@
-#main-body {
-	background-color: #364d63;
-	color: #f2f2f2;
+body {
+	padding: 5% !important;
+}
+
+.bottom-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
 }
