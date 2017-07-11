@@ -6,6 +6,8 @@
  *
  * Returns the generated list.
  */
-let generateList = (size, min = 0, max = 25) => Array(size).fill(0).map(i => parseInt(min + (Math.random() * max), 10))
+let generateList = (size = 8, min = 0, max = 99) => Array(size).fill(0).map(i => parseInt(min + (Math.random() * max), 10))
 
-export default generateList
+module.exports = {
+  "generateList": generateList
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import Code from './code.jsx'
 import Tabs from './tabs.jsx'
-import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils.js'
+import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils'
+
+import ListRenderer from './list_renderer.jsx'
+import { generateList } from '../utils/generate_list'
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -48,8 +51,13 @@ export default class Home extends React.Component {
   }
 
   renderIntro() {
+    let list = generateList(8)
+
     return (
-      <div> An introduction </div>
+      <div>
+        An introduction
+        <ListRenderer list={list} />
+      </div>
     )
   }
 

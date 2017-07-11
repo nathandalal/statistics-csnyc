@@ -34,8 +34,9 @@ export default class Code extends React.Component {
             <span key={index}>
               <span
                 className={`custom-code-line line-${index}`}
+                onClick={this.focusOnCodeLine.bind(this, index)}
                 onMouseEnter={this.focusOnCodeLine.bind(this, index)}
-                onMouseLeave={this.focusOnCodeLine.bind(this, index, false)}
+                onMouseLeave={this.focusOnCodeLine.bind(this, index, 0)}
                 dangerouslySetInnerHTML={{__html: line}}
                 style={{
                   backgroundColor: index == this.props.highlightIndex ? "#989cb3" :
@@ -47,7 +48,7 @@ export default class Code extends React.Component {
             </span>
           ))}
         </div> 
-        <a className="link is-pulled-right" style={{marginLeft: "1%"}} onClick={this.showCodeAction.bind(this, false)}>Hide Code</a>
+        <a className="link is-pulled-right" style={{marginLeft: "10%"}} onClick={this.showCodeAction.bind(this, false)}>Hide Code</a>
 
         <div style={{clear: "all", padding: "1em"}} dangerouslySetInnerHTML={{__html: 
           this.hasValidHighlightIndex() ? this.state.doc_lines[this.props.highlightIndex] :
@@ -69,19 +70,20 @@ export default class Code extends React.Component {
   }
 
   focusOnCodeLine(index, shouldSet = true) {
+    console.log(index, this.hasValidHighlightIndex(), this.hasValidFocusIndex())
     if (!(this.hasValidHighlightIndex())) {
       this.setState({focusIndex: shouldSet ? index : null})
     }
   }
 
   hasValidHighlightIndex() {
-    return this.props.highlightIndex && 
+    return (this.props.highlightIndex == 0) ||
         this.props.highlightIndex >= 0 && 
         this.props.highlightIndex < this.state.code_lines.length
   }
 
   hasValidFocusIndex() {
-    return this.state.focusIndex && 
+    return (this.state.focusIndex == 0) ||
         this.state.focusIndex >= 0 && 
         this.state.focusIndex < this.state.code_lines.length
   }
