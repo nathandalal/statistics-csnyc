@@ -10,7 +10,7 @@ const path = require('path')
 let getPythonFile = (filename) => {
   let retobj = { src_str: fs.readFileSync(path.resolve(__dirname, `src/${filename}`), 'utf8') }
   retobj.src = retobj.src_str.split('\n'),
-  retobj.doc = fs.readFileSync(path.resolve(__dirname, "docs/" + filename.slice(0, -3) + ".txt"), 'utf8').split('\n')
+  retobj.doc = fs.readFileSync(path.resolve(__dirname, "docs/" + filename.slice(0, -3) + ".html"), 'utf8').split('\n\n')
 
   return retobj 
 }

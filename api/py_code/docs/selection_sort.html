@@ -1,18 +1,35 @@
 def selection_sort(numbers):
+
   # move through unsorted part of list
+
   for i in range(0, len(numbers)):
 
+
+
     # find where the minimum is
+
     min_index = i
+
     for j in range(i + 1, len(numbers)):
 
+
+
       # continue to update the minimum index
+
       if numbers[j] < numbers[min_index]:
+
         min_index = j
 
+
+
     # bring minimum value to the front by swapping
+
     temp_number = numbers[min_index]
+
     numbers[min_index] = numbers[i]
+
     numbers[i] = temp_number
+
+    
   
   return numbers
