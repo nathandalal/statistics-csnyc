@@ -6,14 +6,21 @@ router.use(express.static('public'))
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
+const PythonCodeHandler = require('./py_code/py_api')
+
 const config = require('../config')
 
 var availableRoutes = [
     {
-        title: 'Hello World!',
-        routename: '/helloworld',
+        title: 'Python Lesson File',
+        routename: '/pylessonfiles/:filename',
         methods: ["GET"],
-        description: "Example of how to set up an Express API in a separate router file."
+        description: [
+            "Gets Python lesson file necessary for code display.",
+            "Pass the name of the file without a extension.",
+            "Options: mean, median, merge, merge_sort, mode, selection_sort",
+            "Output format: JSON object with src and docs as keys, both are arrays of equal length.",
+        ]
     }
 ]
 
@@ -27,12 +34,11 @@ router.get('/', (req, res) => {
 const internalServerError = 
     (res, reason, source) => res.status(500).send({ error: `Error retrieving data from ${source}.`, reason: reason })
 const badUserRequestError = 
-    (res, reason) => res.status(400).send({ error: `Invalid user request to ${route} API endpoint.`, reason: reason })
+    (res, route, reason) => res.status(400).send({ error: `Invalid user request to ${route} API endpoint.`, reason: reason })
 
 router.get(availableRoutes[0].routename, (req, res) => {
-    res.send({
-        "text": "Hello World!"
-    })
+    try { return res.send(PythonCodeHandler.getPyFile(req.params.filename)) }
+    catch (e) { return badUserRequestError(res, availableRoutes[0].routename, e) }
 })
 
 //nothing matched our api requests, return 404

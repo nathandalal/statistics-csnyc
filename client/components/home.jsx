@@ -1,53 +1,65 @@
 import React from 'react';
-import {render} from 'react-dom';
 import Code from './code.jsx'
+import Tabs from './tabs.jsx'
+import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils.js'
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.initTabs()
+  }
+
+  initTabs() {
+    this.state = {
+      tabs: [
+        {name: "Introduction",          icon: "image"},
+        {name: "What You Will Learn",   icon: "hourglass-start"},
+        {name: "Get Started",           icon: "play-circle"}
+      ]
+    }
+  }
+
+  componentWillMount() {
+    this.setState({tabs: resetActiveTabState(this.state.tabs)})
+  }
+
   render() {
     return (
       <div>
         <h1 className="title">Mean, Median, and Mode</h1>
-        <h2 className="subtitle">Get started with understanding data.</h2>
+        <h2 className="subtitle">Get started with understanding lists.</h2>
 
-        <div className="tabs is-boxed">
-          <ul>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-image"></i></span>
-                <span>Overview</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-hourglass-start"></i></span>
-                <span>bruh</span>
-              </a>
-            </li>
-            <li className="is-active">
-              <a>
-                <span className="icon is-small"><i className="fa fa-list"></i></span>
-                <span>bruh</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-file-text-o"></i></span>
-                <span>bruh</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <Tabs tabs={this.state.tabs} />
 
         <div className="columns is-desktop is-gapless">
           <div className="column is-two-thirds">
-            Nothing to currently see here.
+            {
+              this.state.tabs[0].active ? this.renderIntro() :
+              this.state.tabs[1].active ? this.renderWhatYouWillLearn() :
+              this.state.tabs[2].active ? this.renderGetStarted() : ""
+            }
           </div>
           <div className="column is-one-thirds">
-            <Code 
-              fileName={"mean.py"} highlightIndex={3} />
+            <Code fileName={"mean.py"} />
           </div>
         </div>
       </div>
     )
+  }
+
+  renderIntro() {
+    return (
+      <div> An introduction </div>
+    )
+  }
+
+  renderWhatYouWillLearn() {
+    return (
+      <div> What this unit will teach you... </div>
+    )
+  }
+
+  renderGetStarted() {
+    <div> Let's get started! </div>
   }
 }

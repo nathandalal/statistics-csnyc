@@ -26,7 +26,11 @@
         <td>{{route.title}}</td>
         <td><a href="/api{{route.routename}}" title="{{route.routename}}">{{route.routename}}</a></td>
         <td>{{ route.methods.join(", ") }}</td>
-        <td>{{ route.description }}</td>
+        <td>
+          {% for line in route.description %}
+            {{ line }}<br>
+          {% endfor %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

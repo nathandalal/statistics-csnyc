@@ -1,42 +1,37 @@
 import React from 'react';
-import {render} from 'react-dom';
 import Code from './code.jsx'
+import Tabs from './tabs.jsx'
+
+import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils.js'
 
 export default class RealData extends React.Component {
+  constructor(props) {
+    super(props)
+    this.initTabs()
+  }
+
+  initTabs() {
+    this.state = {
+      tabs: [
+        {name: "What is an API?",           icon: "image"},
+        {name: "How to Read Data",          icon: "table"},
+        {name: "Playground: Weather",       icon: "sun-o"},
+        {name: "Playground: NBA Stats",     icon: "dribbble"},
+      ], 
+    }
+  }
+
+  componentWillMount() {
+    this.setState({tabs: resetActiveTabState(this.state.tabs)})
+  }
+
   render() {
     return (
       <div>
         <h1 className="title">APIs for Live Data</h1>
         <h2 className="subtitle">Putting all the knowledge together!</h2>
 
-        <div className="tabs is-boxed">
-          <ul>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-image"></i></span>
-                <span>What is an API?</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-table"></i></span>
-                <span>How to Read Data</span>
-              </a>
-            </li>
-            <li className="is-active">
-              <a>
-                <span className="icon is-small"><i className="fa fa-sun-o"></i></span>
-                <span>Playground: Weather</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span className="icon is-small"><i className="fa fa-dribbble"></i></span>
-                <span>Playground: NBA Stats</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <Tabs tabs={this.state.tabs} />
 
         <div className="columns is-desktop is-gapless">
           <div className="column is-two-thirds">
