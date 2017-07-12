@@ -34,10 +34,10 @@ export default class Mean extends React.Component {
         <Tabs tabs={this.state.tabs} />
 
         <div className="columns is-desktop is-gapless">
-          <div className="column is-two-thirds">
+          <div className="column is-7">
             Nope, nothing on the mean yet!
           </div>
-          <div className="column is-one-thirds">
+          <div className="column">
             <Code fileName={"mean.py"} highlightIndex={6} />
           </div>
         </div>

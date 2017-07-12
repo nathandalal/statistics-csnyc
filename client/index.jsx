@@ -10,6 +10,8 @@ import RealData from './components/realdata.jsx'
 
 import Footer from './components/footer.jsx'
 
+import bowser from 'bowser'
+
 class Index extends React.Component {
   constructor(props) {
     super(props)
@@ -27,6 +29,11 @@ class Index extends React.Component {
     return (
       <Router>
         <div>
+          {bowser.msie && bowser.version <= 8 ? 
+          <div className="notification is-warning">
+            You are using version Internet Explorer 8 or lower. Some animations in this exercise may not work.<br />
+            Please <strong>switch browsers</strong> or update your Internet Explorer version. Try <a target="_blank" href="http://google.com/chrome">Google Chrome</a>.
+          </div> : ""}
           {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name} />)}
           <Footer routes={routes} />
         </div>

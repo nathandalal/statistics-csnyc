@@ -36,7 +36,7 @@ export default class Code extends React.Component {
                 className={`custom-code-line line-${index}`}
                 onClick={this.focusOnCodeLine.bind(this, index)}
                 onMouseEnter={this.focusOnCodeLine.bind(this, index)}
-                onMouseLeave={this.focusOnCodeLine.bind(this, index, 0)}
+                onMouseLeave={this.focusOnCodeLine.bind(this, index, false)}
                 dangerouslySetInnerHTML={{__html: line}}
                 style={{
                   backgroundColor: index == this.props.highlightIndex ? "#989cb3" :

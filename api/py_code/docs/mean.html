@@ -1,10 +1,17 @@
-def get_mean(numbers):
+The <code>def</code> keyword defines a function. We see that we have named our function <code>get_mean</code>.<br><br>
+A function expects an input (here we expect a list that we call <code>numbers</code>).
+A function also may return an output; in this case we want to find the mean of this list.
 
-  # keep track of sum and number of elements
+Lines that begin with a <code>#</code> are comments. Comments are written to clarify code.<br><br>
+This line explains that we must create some <strong>variables</strong>
+to store what we would like to keep track of.
 
-  numbers_sum = 0
+We want to create a variable that keeps track of the sum of the list. <code>sum_of_numbers</code> is a variable we will now initialize to store
+the sum of the list as we go along.<br><br>
+We haven't gone through any numbers yet, so we use the <code>=</code> operator to set our initial sum to <code>0</code>.
 
-  numbers_size = 0
+In order to calculate an average, we must also know how many elements are in the list. We make the <code>amount_of_numbers</code> variable to store this running count.<br><br>
+We haven't gone through any numbers yet, so we use the <code>=</code> operator to set our initial amount of numbers we have seen to <code>0</code>.
 
 
 
@@ -20,4 +27,6 @@ def get_mean(numbers):
 
   # divide for the average
 
-  return float(numbers_sum) / numbers_size
+  mean_of_numbers = float(numbers_sum) / numbers_size
+
+  return mean_of_numbers

@@ -34,10 +34,10 @@ export default class Mode extends React.Component {
         <Tabs tabs={this.state.tabs} />
 
         <div className="columns is-desktop is-gapless">
-          <div className="column is-two-thirds">
+          <div className="column is-7">
             Nothing to currently see here.
           </div>
-          <div className="column is-one-thirds">
+          <div className="column">
             <Code fileName={"mode.py"} highlightIndex={3} />
           </div>
         </div>

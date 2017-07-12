@@ -1,10 +1,10 @@
 def get_median(numbers):
   # sort the array
-  sorted_numbers = sorted(numbers)
+  sorted_numbers = merge_sort(numbers)
   middle_index = len(numbers) / 2
 
     # pick out the middle index
-  if len(numbers) % 2 == 1:
+  if is_odd(len(numbers)):
     return sorted_numbers[middle_index]
   # or the average of the two middle indexes
   else:

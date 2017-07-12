@@ -35,14 +35,14 @@ export default class Home extends React.Component {
         <Tabs tabs={this.state.tabs} />
 
         <div className="columns is-desktop is-gapless">
-          <div className="column is-two-thirds">
+          <div className="column is-7">
             {
               this.state.tabs[0].active ? this.renderIntro() :
               this.state.tabs[1].active ? this.renderWhatYouWillLearn() :
               this.state.tabs[2].active ? this.renderGetStarted() : ""
             }
           </div>
-          <div className="column is-one-thirds">
+          <div className="column">
             <Code fileName={"mean.py"} />
           </div>
         </div>
