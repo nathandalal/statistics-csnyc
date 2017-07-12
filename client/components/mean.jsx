@@ -28,7 +28,7 @@ export default class Mean extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="title">Mean</h1>
+        <h1 className="title animated fadeIn">Mean</h1>
         <h2 className="subtitle">The average of all elements in a list.</h2>
 
         <Tabs tabs={this.state.tabs} />

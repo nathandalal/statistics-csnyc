@@ -7,12 +7,14 @@ const NumberCircle = ({ n }) => (
 )
 
 const ListRenderer = ({ list }) => {
-  let animations = ["pulse", "zoomIn", "bounce", "jackInTheBox", 
+  let getAnimation = () => {
+    let animations = ["pulse", "zoomIn", "bounce", "jackInTheBox", 
                     "fadeInDown", "fadeInLeft", "bounceIn", "tada", "shake", "rubberBand"]
-  let animation = animations[Math.floor(Math.random()*animations.length)];
+    return animations[Math.floor(Math.random()*animations.length)];
+  }
 
   return (
-    <div className={`columns is-mobile animated ${animation}`} style={{margin: "auto", width: "100%"}}>
+    <div className={`columns is-mobile animated ${getAnimation()}`} style={{margin: "auto", width: "100%"}}>
       {list.map((number, index) => <div className="column" key={index}><NumberCircle n={number} /></div>)}
     </div>
   )

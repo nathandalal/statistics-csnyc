@@ -70,9 +70,8 @@ export default class Code extends React.Component {
   }
 
   focusOnCodeLine(index, shouldSet = true) {
-    console.log(index, this.hasValidHighlightIndex(), this.hasValidFocusIndex())
     if (!(this.hasValidHighlightIndex())) {
-      this.setState({focusIndex: shouldSet ? index : null})
+      this.setState({focusIndex: shouldSet ? index : -1})
     }
   }
 
