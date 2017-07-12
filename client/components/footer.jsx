@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Footer = ({ routes }) => (
-  <footer><div className="tabs is-centered"><ul style={{marginBottom: "10px"}}>
+  <footer>
+    <div className="tabs is-centered" style={{marginBottom: "1px"}}><ul>
     {routes.map(route => (
       <li key={route.name} className={`${window.location.pathname == route.path ? "is-active" : ""}`}>
         <Link to={route.path}>
@@ -11,7 +12,11 @@ const Footer = ({ routes }) => (
         </Link>
       </li>
     ))}
-  </ul></div></footer>
+    </ul></div>
+    <div style={{marginBottom: "10px"}} className="has-text-centered">
+      <small>Made at <i className="fa fa-envira" style={{marginTop: "8px", fontSize: "10px"}}></i>MongoDB</small>
+    </div>
+  </footer>
 )
 
 export default Footer
