@@ -50,7 +50,7 @@ export default class Code extends React.Component {
         </div> 
         <a className="link is-pulled-right" style={{marginLeft: "10%"}} onClick={this.showCodeAction.bind(this, false)}>Hide Code</a>
 
-        <div style={{clear: "all", padding: "1em"}} dangerouslySetInnerHTML={{__html: 
+        <div style={{clear: "all", padding: "1em", height: "300px"}} dangerouslySetInnerHTML={{__html: 
           this.hasValidHighlightIndex() ? this.state.doc_lines[this.props.highlightIndex] :
           (this.hasValidFocusIndex() ? this.state.doc_lines[this.state.focusIndex] : 
           "Hover over or click on any line of code to get a closer look.")}} />
