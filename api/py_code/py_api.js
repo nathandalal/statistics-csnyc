@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
+require('./test/test.js')()
+
 /*
  * getPyFile(filename)
  * Returns the Python file specified in the filename.

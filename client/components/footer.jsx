@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Footer = ({ routes }) => (
-  <div className="bottom-footer tabs is-centered"><ul>
+  <footer><div className="tabs is-centered"><ul style={{marginBottom: "10px"}}>
     {routes.map(route => (
       <li key={route.name} className={`${window.location.pathname == route.path ? "is-active" : ""}`}>
         <Link to={route.path}>
@@ -11,7 +11,7 @@ const Footer = ({ routes }) => (
         </Link>
       </li>
     ))}
-  </ul></div>
+  </ul></div></footer>
 )
 
 export default Footer

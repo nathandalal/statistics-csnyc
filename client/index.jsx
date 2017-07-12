@@ -27,17 +27,26 @@ class Index extends React.Component {
     ]
 
     return (
-      <Router>
-        <div>
-          {bowser.msie && bowser.version <= 8 ? 
-          <div className="notification is-warning">
-            You are using version Internet Explorer 8 or lower. Some animations in this exercise may not work.<br />
-            Please <strong>switch browsers</strong> or update your Internet Explorer version. Try <a target="_blank" href="http://google.com/chrome">Google Chrome</a>.
-          </div> : ""}
-          {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name} />)}
+      <Router><div>
+        <div style={{display: "flex", minHeight: "100vh", flexDirection: "column"}}>
+          <div style={{flex: 1, padding: "5%"}}>
+            {this.renderWarnIE()}
+            {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name} />)}
+          </div>
           <Footer routes={routes} />
         </div>
-      </Router>
+      </div></Router>
+    )
+  }
+
+  renderWarnIE() {
+    return (
+      bowser.msie && bowser.version <= 8 ? 
+      <div className="notification is-warning">
+        You are using version Internet Explorer 8 or lower. Some animations in this exercise may not work.<br />
+        Please <strong>switch browsers</strong> or update your Internet Explorer version. 
+        Try <a target="_blank" href="http://google.com/chrome">Google Chrome</a>.
+      </div> : ""
     )
   }
 }

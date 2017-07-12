@@ -1,6 +1,7 @@
 The <code>def</code> keyword defines a function. We see that we have named our function <code>get_mean</code>.<br><br>
 A function expects an input (here we expect a list that we call <code>numbers</code>).
-A function also may return an output; in this case we want to find the mean of this list.
+A function also may return an output; in this case we want to find the mean of this list.<br><br>
+Finally, the <code>:</code> at the end of the line and tne indenting in the rest of the code tells us that the code below is part of our function.
 
 Lines that begin with a <code>#</code> are comments. Comments are written to clarify code.<br><br>
 This line explains that we must create some <strong>variables</strong>
@@ -15,18 +16,25 @@ We haven't gone through any numbers yet, so we use the <code>=</code> operator t
 
 
 
-  # sum all numbers by gradually adding
+Remember that we use <code>#</code> to indicate a comment. This one tells us we will begin going through each number in our list.
 
-  for number in numbers
+We make a variable called <code>number</code> that stores each element of our <code>numbers</code> list, one by one.<br><br>
+This construction is called a <strong>for loop</strong>. The use of the keyword <code>for</code> allows us to walk through our list, getting each <code>number</code> one by one until we have gone through every <code>number in numbers</code>.<br><br>
+The <code>:</code> and indenting is used again to show that the next two lines are part of our <strong>for loop</strong>.
 
-    numbers_sum += number
+We are adding the <code>number</code> to the existing <code>sum_of_numbers</code> variable as this number <b>adds to our running sum total</b>.<br><br>
+The <code>+=</code> operator takes the existing value in <code>sum_of_numbers</code> and adds <code>number</code> to it. This is a nice shortcut offered by Python for the following code:
+<pre><code>sum_of_numbers = sum_of_numbers + number</code></pre>
 
-    numbers_size += 1
+We are adding <code>1</code> to the existing <code>amount_of_numbers</code> counting variable as <b>we have seen one more number</b>.<br><br>
+The <code>+=</code> operator takes the existing value in <code>amount_of_numbers</code> and adds <code>1</code> to it. This is a nice shortcut offered by Python for the following code:
+<pre><code>amount_of_numbers = amount_of_numbers + 1</code></pre>
 
 
 
-  # divide for the average
+Another comment using <code>#</code> to indicate that we are done with our loop and now we must divide our sum and our count of the <code>numbers</code>.
 
-  mean_of_numbers = float(numbers_sum) / numbers_size
+We define a new variable and store our <code>answer</code>. Now, we need to simply divide our <code>sum_of_numbers</code> and <code>amount_of_numbers</code>.<br><br>
+We call the <code>float()</code> function to convert our number from a whole number to a decimal. Whole numbers, positive or negative, in programming, are called <b>integers</b> and decimal numbers are called <b>floats</b>.
 
-  return mean_of_numbers
+Finally the function must output an answer! We use the <code>return</code> keyword to send our output back. We have calculated the mean and we send out that variable as an output.<br></br>
