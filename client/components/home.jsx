@@ -33,7 +33,7 @@ export default class Home extends React.Component {
 
         <Tabs tabs={this.state.tabs} />
 
-        <div className="columns is-desktop is-gapless">
+        <div className="columns is-desktop">
           <div className="column is-9-desktop is-12-tablet">
             {this.renderIntro()}
           </div>

@@ -38,7 +38,7 @@ export default class Mean extends React.Component {
             Nope, nothing on the mean yet!
           </div>
           <div className="column is-5-widescreen is-12-desktop">
-            <Code fileName={"mean.py"} highlightIndex={6} />
+            <Code fileName={"mean.py"} />
           </div>
         </div>
       </div>

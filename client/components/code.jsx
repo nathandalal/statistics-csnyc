@@ -42,7 +42,8 @@ export default class Code extends React.Component {
                   backgroundColor: index == this.props.highlightIndex ? "#989cb3" :
                                   (index == this.state.focusIndex ? "#4c5067" : ""),
                   width: "100%",
-                  display: "inline-block"
+                  display: "inline-block",
+                  cursor: "default"
                 }} />
               <br />
             </span>

@@ -5,9 +5,12 @@
   "main": "app.js",
   "scripts": {
     "test": "node test/test.js",
-    "dev": "nodemon app.js | ./node_modules/.bin/webpack -d --watch || true",
+    "server": "node app.js",
+    "server:watch": "nodemon app.js",
     "build": "./node_modules/.bin/webpack -p",
-    "start": "node app.js"
+    "build:watch": "./node_modules/.bin/webpack -d --watch",
+    "dev": "npm run server:watch & npm run build:watch",
+    "start": "npm run server"
   },
   "repository": {
     "type": "git",
