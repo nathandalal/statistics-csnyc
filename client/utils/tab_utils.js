@@ -18,18 +18,20 @@ function verify(tabs) {
 /*
  * resetActiveTabState(tabs)
  *
- * If no tabs are active or more than one tab is activated, this is considered an error state.
- * The first tab will be activated and all other tabs will be turned off.
+ * Sets the active tab given the URL.
+ * The activeTab is given an empty parameter as default in order to avoid setting null paths to active tabs.
  *
  * The tabs user is responsible for calling this method as it will be most likely used to change a React state.
  */
-function reset(tabs) {
+function set(tabs, activeTab = "") {
+  let activeTabSet = false
   tabs.map(tab => {
-    tab.active = false
+    if (activeTab == tab.path)
+      tab.active = activeTabSet = true
     return tab
   })
 
-  tabs[0].active = true
+  if (!activeTabSet) tabs[0].active = true
 
   return tabs
 
@@ -37,5 +39,5 @@ function reset(tabs) {
 
 module.exports = {
   verifyOneActiveTab: verify,
-  resetActiveTabState: reset
+  setActiveTabState: set
 }

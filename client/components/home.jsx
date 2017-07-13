@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import Code from './code.jsx'
 import Tabs from './tabs.jsx'
-import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils'
+import { verifyOneActiveTab, setActiveTabState } from '../utils/tab_utils'
 
 import ListRenderer from './list_renderer.jsx'
 import { generateList } from '../utils/generate_list'
@@ -22,7 +22,7 @@ export default class Home extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({tabs: resetActiveTabState(this.state.tabs)})
+    this.setState({tabs: setActiveTabState(this.state.tabs)})
   }
 
   render() {

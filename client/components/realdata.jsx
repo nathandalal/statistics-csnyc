@@ -1,8 +1,7 @@
 import React from 'react';
 import Code from './code.jsx'
 import Tabs from './tabs.jsx'
-
-import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils.js'
+import { Link } from 'react-router-dom'
 
 export default class RealData extends React.Component {
   constructor(props) {
@@ -13,32 +12,32 @@ export default class RealData extends React.Component {
   initTabs() {
     this.state = {
       tabs: [
-        {name: "What is an API?",           icon: "image"},
-        {name: "How to Read Data",          icon: "table"},
-        {name: "Playground: Weather",       icon: "sun-o"},
-        {name: "Playground: NBA Stats",     icon: "dribbble"},
+        {path: null,        name: "What is an API?",           icon: "image"},
+        {path: "how",       name: "How to Read Data",          icon: "table"},
+        {path: "nba",       name: "Playground: Weather",       icon: "sun-o"},
+        {path: "weather",   name: "Playground: NBA Stats",     icon: "dribbble"},
       ], 
     }
   }
 
-  componentWillMount() {
-    this.setState({tabs: resetActiveTabState(this.state.tabs)})
-  }
-
   render() {
+    let rootPath = "/realdata"
     return (
       <div>
         <h1 className="title">APIs for Live Data</h1>
         <h2 className="subtitle">Putting all the knowledge together!</h2>
 
-        <Tabs tabs={this.state.tabs} />
+        <Tabs rootPath={rootPath} tabs={this.state.tabs} activeTab={this.props.match.params.tab} />
 
-        <div className="columns is-desktop is-gapless">
-          <div className="column is-7">
-            Nothing to currently see here.
+        <div className="columns is-multiline is-desktop">
+          <div className="column is-7-widescreen is-12-desktop">
+            <div className="content">
+              <h6>Nope, the real data section isn't live yet!</h6>
+              <Link to={`${rootPath}/how`} className="button is-primary">Reading Computer Data</Link>
+            </div>
           </div>
-          <div className="column">
-            No code currently available.
+          <div className="column is-5-widescreen is-12-desktop">
+            No code to show.
           </div>
         </div>
       </div>

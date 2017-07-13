@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 import Home from './components/home.jsx'
 import Mean from './components/mean.jsx'
@@ -18,22 +18,29 @@ class Index extends React.Component {
   }
 
   render() {
-    let routes = [
-      { path: "/",           name: "Start",            icon: "play",              component: Home},
+    let main_routes = [
+      { path: "/",           name: "Start",            icon: "play",              component: Home },
       { path: "/mean",       name: "Mean",             icon: "list",              component: Mean },
       { path: "/median",     name: "Median",           icon: "sort-amount-asc",   component: Median },
       { path: "/mode",       name: "Mode",             icon: "chevron-up",        component: Mode },
       { path: "/realdata",   name: "Using Live Data",  icon: "area-chart",        component: RealData }
     ]
 
+    let all_routes = main_routes.concat([
+      { path: "/mean/:tab",       component: Mean},
+      { path: "/median/:tab",     component: Median},
+      { path: "/mode/:tab",       component: Mode},
+      { path: "/realdata/:tab",   component: RealData}
+    ])
+
     return (
       <Router><div>
         <div style={{display: "flex", minHeight: "100vh", flexDirection: "column"}}>
           <div style={{flex: 1, padding: "5%"}}>
             {this.renderWarnIE()}
-            {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name} />)}
+            {all_routes.map(route => <Route exact path={route.path} component={route.component} key={route.path} />)}
           </div>
-          <Footer routes={routes} />
+          <Footer routes={main_routes} />
         </div>
       </div></Router>
     )

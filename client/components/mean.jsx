@@ -1,8 +1,7 @@
 import React from 'react';
 import Code from './code.jsx'
 import Tabs from './tabs.jsx'
-
-import { verifyOneActiveTab, resetActiveTabState } from '../utils/tab_utils.js'
+import { Link } from 'react-router-dom'
 
 export default class Mean extends React.Component {
   constructor(props) {
@@ -13,29 +12,29 @@ export default class Mean extends React.Component {
   initTabs() {
     this.state = {
       tabs: [
-        {name: "Overview",                  icon: "image"},
-        {name: "Brainstorming",             icon: "hourglass-start"},
-        {name: "Looping Over a List",       icon: "list"},
-        {name: "Computing The Mean",        icon: "file-text-o"},
+        {path: null,            name: "Overview",                   icon: "image"},
+        {path: "brainstorm",    name: "Brainstorming",              icon: "hourglass-start"},
+        {path: "loop",          name: "Looping Over a List",        icon: "list"},
+        {path: "finish",        name: "Computing The Mean",         icon: "file-text-o"},
       ], 
     }
   }
 
-  componentWillMount() {
-    this.setState({tabs: resetActiveTabState(this.state.tabs)})
-  }
-
   render() {
+    let rootPath = "/mean"
     return (
       <div>
-        <h1 className="title animated fadeIn">Mean</h1>
+        <h1 className="title">Mean</h1>
         <h2 className="subtitle">The average of all elements in a list.</h2>
 
-        <Tabs tabs={this.state.tabs} />
+        <Tabs rootPath={rootPath} tabs={this.state.tabs} activeTab={this.props.match.params.tab} />
 
         <div className="columns is-multiline is-desktop">
           <div className="column is-7-widescreen is-12-desktop">
-            Nope, nothing on the mean yet!
+            <div className="content">
+              <h6>Nope, nothing on the mean yet!</h6>
+              <Link to={`${rootPath}/brainstorm`} className="button is-primary">Brainstorm!</Link>
+            </div>
           </div>
           <div className="column is-5-widescreen is-12-desktop">
             <Code fileName={"mean.py"} />
