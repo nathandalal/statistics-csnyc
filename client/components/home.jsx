@@ -2,10 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import Code from './code.jsx'
 import Tabs from './tabs.jsx'
-import { verifyOneActiveTab, setActiveTabState } from '../utils/tab_utils'
-
-import ListRenderer from './list_renderer.jsx'
-import { generateList } from '../utils/generate_list'
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -19,10 +15,6 @@ export default class Home extends React.Component {
         {name: "Getting Started",   icon: "play-circle"},
       ]
     }
-  }
-
-  componentWillMount() {
-    this.setState({tabs: setActiveTabState(this.state.tabs)})
   }
 
   render() {
@@ -46,8 +38,6 @@ export default class Home extends React.Component {
   }
 
   renderIntro() {
-    let list = generateList(8)
-
     return (
       <div className="content">
         <h3>Understanding Lists</h3>
