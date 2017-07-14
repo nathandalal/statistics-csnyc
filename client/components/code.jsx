@@ -60,7 +60,8 @@ export default class Code extends React.Component {
   }
 
   renderHiddenCode() {
-    return <div>
+    return <div className="content">
+      <h5>Walk through the Python code that executes <code>{this.props.fileName}</code> step-by-step.</h5>
       <a className="button is-primary" onClick={this.showCodeAction.bind(this, true)}>Show Code</a>
     </div>
   }

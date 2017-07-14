@@ -85,11 +85,11 @@ export default class Home extends React.Component {
     return (
       <div className="content animated fadeIn" style={{
         animationDuration: "3s",
-        animationDelay: "1s"
+        animationDelay: ""
       }}>
         <h4 className="title is-4">What are you waiting for?</h4>
         <h6 className="subtitle is-6">Click the button and jump in!</h6>
-        <Link to="/mean" className="button is-primary">Get Started</Link>
+        <Link to="/mean" className="button is-primary is-large">Get Started</Link>
       </div>
     )
   }

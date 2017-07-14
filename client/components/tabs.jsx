@@ -23,7 +23,7 @@ const Tabs = ({ rootPath, tabs, activeTab }) => {
     )
 
     let renderNormalTab = (tab) => (
-      <a style={{cursor: "default"}}>
+      <a style={{cursor: tab.class == "custom-inactive-tab" ? "not-allowed" : "default"}}>
         <span className="icon is-small">
           <i className={`fa fa-${tab.icon}`} />
         </span>
