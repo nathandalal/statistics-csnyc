@@ -246,7 +246,8 @@ export default class SelectionSortVisual extends React.Component {
               <span style={{clear: "both"}} className="tag is-info pull-right">
                 {this.state.makingSwap ? `Swapping ${this.state.list[this.state.currentOuterIndex]} with ${this.state.list[this.state.currentMinimumIndex]}` : (
                   this.state.makingComparison ? `Comparing ${this.state.list[this.state.currentInnerIndex]} with ${this.state.list[this.state.currentMinimumIndex]}` : (
-                    this.state.changingStartIndex ? "Changing Start Index" : `Moving Through List`))}
+                    this.state.changingStartIndex ? "Changing Start Index" : (
+                      this.state.changingMinimum ? "Changing Minimum Index" : `Moving Through List`)))}
               </span> : ""}
               <span style={{clear: "both"}} className={`tag ${this.state.currentOuterIndex == this.props.list.length ? "is-success" : "is-dark"} pull-right`}>
                 {this.state.currentOuterIndex == -1 ? "Waiting..." : 
