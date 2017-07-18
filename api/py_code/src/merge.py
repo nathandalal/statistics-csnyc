@@ -1,25 +1,25 @@
-def merge(arr1, arr2):
+def merge(sorted_list1, sorted_list2):
+  '''Merges two sorted lists into one sorted list.'''
 
-  i = 0 # index for arr1
-  j = 0 # index for arr2
-  result = []
+  merged_list = []
 
-  while i < len(arr1) or j < len(arr2):
+  # reverse our lists to remove from the end of them
+  sorted_list1.reverse()  
+  sorted_list2.reverse()  
 
-    # one of the lists is finished
-    if i >= len(arr1):
-      result.append(arr2[j])
-      j += 1
-    elif j >= len(arr2):
-      result.append(arr1[i])
-      i += 1
-
-    # compare elements in both sorted lists
-    elif arr1[i] < arr2[j]:
-      result.append(arr1[i])
-      i += 1
+  # pull smallest element from each list until one is empty
+  while sorted_list1 and sorted_list2:
+    # compare last element of each list to see which to pull
+    if sorted_list1[-1] < sorted_list2[-1]:
+      merged_list.append(first_sorted_list.pop())
     else:
-      result.append(arr2[j])
-      j += 1
+      merged_list.append(second_sorted_list.pop())
 
-  return result
+  # pull elements from the list that is not empty
+  while first_sorted_list:
+    merged_list.append(first_sorted_list.pop())
+  while second_sorted_list:
+    merged_list.append(second_sorted_list.pop())
+
+  # we pulled out all elements in sorted order!
+  return merged_list

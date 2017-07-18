@@ -1,23 +1,36 @@
-import React from 'react';
-import axios from 'axios';
+import React from 'react'
+import axios from 'axios'
+import cookie from 'react-cookies'
 
 export default class Code extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showCode: document.cookie == "showCode=true" || false}
+    this.state = {showCode: cookie.load("showCode") == "true" || false, screenWidth: window.innerWidth}
     this.getCode()
   }
 
   getCode() {
     axios.get(`/api/pylessonfiles/${this.props.fileName}`).then(({ data }) => {
       let code = hljs.highlight('python', data.src_str).value.split('\n')
-      this.setState({code_lines: code, doc_lines: data.doc, code_raw: data.src})
+      this.setState({code_lines: code.slice(0, -1), doc_lines: data.doc, code_raw: data.src})
     })
   }
 
   render() {
     return this.state && this.state.showCode ? this.renderCode() : this.renderHiddenCode()
   }
+
+  updateDimensions() {
+    console.log(window.innerWidth)
+    this.setState({screenWidth: window.innerWidth})
+  }
+  componentDidMount() {
+    window.addEventListener("resize", this.updateDimensions.bind(this))
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this))
+  }
+
 
   renderCode() {
     return (this.state && this.state.code_lines) ? 
@@ -28,7 +41,9 @@ export default class Code extends React.Component {
             backgroundColor: "#282a36",
             whiteSpace: "pre",
             fontFamily: "monospace",
-            color: "#f8f8f2"
+            fontSize: this.state.screenWidth > 1192 ? "90%": "100%",
+            color: "#f8f8f2",
+            overflowX: "scroll"
           }}>
           {this.state.code_lines.map((line, index) => (
             <span key={index}>
@@ -43,7 +58,7 @@ export default class Code extends React.Component {
                                   (index == this.state.focusIndex ? "#4c5067" : ""),
                   width: "100%",
                   display: "inline-block",
-                  cursor: "default"
+                  cursor: this.hasValidHighlightIndex() ? "default" : "pointer"
                 }} />
               <br />
             </span>
@@ -67,7 +82,7 @@ export default class Code extends React.Component {
   }
 
   showCodeAction(flag) {
-    document.cookie = `showCode=${flag}`
+    cookie.save("showCode", flag, {path: "/"})
     this.setState({showCode: flag})
   }
 

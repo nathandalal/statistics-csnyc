@@ -12,10 +12,9 @@ export default class SummationVisual extends React.Component {
       showControls: false,
 
       delayms: 1000,
-      currentIndex: -1,
+      currentIndex: -1, 
       currentSum: 0,
-      currentCount: 0,
-      codeHighlightIndex: -1
+      currentCount: 0
     }
   }
 
@@ -24,9 +23,12 @@ export default class SummationVisual extends React.Component {
       delayms: delayms,
       currentIndex: -1,
       currentSum: 0,
-      currentCount: 0,
-      codeHighlightIndex: -1
+      currentCount: 0
     })
+  }
+
+  buildColorList() {
+    return this.props.list.map((n, i) => (i < this.state.currentIndex) ? "#23d160" : "")
   }
 
   changeDelay(seconds) {
@@ -35,9 +37,7 @@ export default class SummationVisual extends React.Component {
   }
 
   setAnimationControls(enterPress = false) {
-    console.log(this.state.inputList, enterPress)
     if (this.state.inputList == "" && !enterPress)  {
-      console.log("here")
       this.props.changeList()
     }
     else {
@@ -94,8 +94,8 @@ export default class SummationVisual extends React.Component {
 
   updateCurrentIndex(index, delayms, finalUpdate = false) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentIndex: index,})
-      this.props.updateHighlightStep(finalUpdate ? -6 : 1)
+      this.setState({currentIndex: index})
+      this.props.updateHighlightStep(finalUpdate ? -8 : 1)
     }).bind(this), delayms))
   }
 
@@ -142,11 +142,9 @@ export default class SummationVisual extends React.Component {
           {this.renderAnimation()}
         </div>
 
-        {this.state.currentIndex == this.props.list.length ? 
-          <div className="content">
-            <h6>Now that we have the sum and the total amount of numbers, we have all we need to compute the mean!</h6>
-            <Link to="finish" className="button is-large is-primary animated fadeInLeft">Compute the Mean!</Link>
-          </div> : <h6>Once you complete the animation, you will be able to access the next section.</h6>}
+        <h6>{this.state.currentIndex == this.props.list.length ? "Now that " : "Once "} 
+          we have the sum and the total count of numbers, we have all we need to compute the mean!
+        </h6>
       </div>
     )
   }
@@ -192,7 +190,10 @@ export default class SummationVisual extends React.Component {
   renderAnimation() {
     return (
       <div style={{clear:"both"}}>
-        <ListRenderer list={this.props.list} activeIndex={this.state.currentIndex} />
+        <ListRenderer 
+          list={this.props.list} 
+          activeIndex={this.state.currentIndex}
+          colorList={this.buildColorList()} />
         <div className="columns">
           <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentIndex - 2) * (12 / this.props.list.length)), 6)}`} >
             <div className="box content" style={{maxWidth: "300px"}}>
@@ -204,7 +205,7 @@ export default class SummationVisual extends React.Component {
                 <h5 style={{clear:"both"}}>Variables</h5>
                 <span>Sum of Numbers<code className="pull-right">{this.state.currentSum}</code></span> 
                 <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
-                <span>Amount of Numbers<code style={{clear: "both"}}className="pull-right">{this.state.currentCount}</code></span>
+                <span>Count of Numbers<code style={{clear: "both"}}className="pull-right">{this.state.currentCount}</code></span>
               </div> 
             </div>
           </div>

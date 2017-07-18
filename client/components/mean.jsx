@@ -7,6 +7,8 @@ import SummationVisual from './mean/summation_visual.jsx'
 import ListRenderer from './list_renderer.jsx'
 import { generateList } from '../utils/generate_list'
 
+import MeanQuiz from './mean/mean_quiz.jsx'
+
 export default class Mean extends React.Component {
   constructor(props) {
     super(props)
@@ -14,12 +16,11 @@ export default class Mean extends React.Component {
   }
 
   componentWillMount() {
+    window.scrollTo(0, 0)
     this.state = {
       tabs: [
-        {path: null,            name: "Overview",                   icon: "hourglass-start"},
-        {path: "loop",          name: "Looping Over a List",        icon: "list"},
-        {path: "finish",        name: "Computing The Mean",         icon: "file-text-o"},
-        {path: "quiz",          name: "Quiz",                       icon: "pencil"},
+        {path: null,            name: "Walkthrough",    icon: "list"},
+        {path: "quiz",          name: "Quiz",           icon: "pencil"}
       ],
       list: generateList(),
       highlightIndex: -1
@@ -31,7 +32,7 @@ export default class Mean extends React.Component {
   }
 
   updateHighlightStep(step) {
-    this.setState({highlightIndex: step + 5})
+    this.setState({highlightIndex: step + 7})
   }
 
   render() {
@@ -43,11 +44,14 @@ export default class Mean extends React.Component {
 
         <Tabs rootPath={this.rootPath} tabs={this.state.tabs} activeTab={tabName} />
 
-        {tabName == "loop" ? this.renderLoop() : (
-          tabName == "finish" ? this.renderFinish() : (
-            tabName == "quiz" ? this.renderQuiz() : (
-            this.renderOverview()
-        )))}
+        {tabName == "quiz" ? <MeanQuiz/> : (
+          <div>
+            {this.renderOverview()}
+            {this.renderLoop()}
+            {this.renderFinish()}
+            {this.renderQuizButton()}
+          </div>
+        )}
       </div>
     )
   }
@@ -55,16 +59,21 @@ export default class Mean extends React.Component {
   renderOverview() {
     return (
       <div className="content">
-        <h3>What is a mean and how do we get it?</h3>
+        <h3>What is a mean?</h3>
         <p>
           The mean is an average of every element in a list.
           It's a good way to see what number is closest to every element.
         </p>
+        <h3>Why do we care?</h3>
+        <p>
+          The mean is an average of every element in a list.
+          It's a good way to see what number is closest to every element.
+        </p>
+        <h3>Defining the Mean</h3>
         <p>
           How do you compute any average? You look for the middle of all the items you have.<br/>
           If you wanted to find the average height of <b>you and your friend</b>, you would <b>add up your heights and divide by 2</b>.
         </p>
-        <h3>Definition of Mean</h3>
         <p style={{paddingBottom: "15px"}}>
           You can always <i><b>sum up</b></i> all your individual items in a group or a list.<br/>
           You can <i><b>count up</b></i> all the items as well.
@@ -74,12 +83,8 @@ export default class Mean extends React.Component {
           <h4 className="title is-4">Formula</h4>
           <div className="columns is-mobile">
             <div className="column is-half"><b style={{paddingRight: "10px"}}>Mean of Numbers</b> =</div>
-            <div className="column is-half"><i>Sum of Numbers</i> <hr style={{marginTop:"3px", marginBottom: "3px", maxWidth: "170px"}}/> <i>Amount of Numbers</i></div>
+            <div className="column is-half"><i>Sum of Numbers</i> <hr style={{marginTop:"3px", marginBottom: "3px", maxWidth: "170px"}}/> <i>Count of Numbers</i></div>
           </div>
-        </div>
-        <div className="column content animated fadeIn" style={{animationDuration: "3s"}}>
-          <h5>Let's walkthrough how to compute a mean.</h5>
-          <Link to={`${this.rootPath}/loop`} className="button is-primary is-large">Start Visual</Link>
         </div>
       </div>
     )
@@ -87,11 +92,13 @@ export default class Mean extends React.Component {
 
   renderLoop() {
     return (
-      <div className="columns is-multiline is-desktop">
+      <div className="columns is-multiline is-desktop" style={{marginTop: "80px"}}>
+        <hr/>
         <div className="column is-7-widescreen is-12-desktop">
           <div className="content">
+            <h3>Looping Over a List</h3>
             <h6>
-            In order to calculate the mean, we need to know the <b>sum of all elements</b> and <b>how many elements there are</b>.<br/>
+            In order to calculate the mean, we need to know the <b>sum of all elements</b> and <b>how many elements there are</b>.
             Follow along with the animation and see how the mean is computed.
             </h6>
             <SummationVisual list={this.state.list} 
@@ -110,9 +117,11 @@ export default class Mean extends React.Component {
     let sum = this.state.list.reduce((a, b) => a + b, 0)
     let len = this.state.list.length
     return (
-      <div className="columns is-multiline is-desktop">
+      <div className="columns is-multiline is-desktop" style={{marginTop: "80px"}}>
+        <hr/>
         <div className="column is-7-widescreen is-12-desktop">
           <div className="content">
+            <h3>Calculating the Mean</h3>
             <h5>We have all the data we need from our list!</h5>
             <ListRenderer list={this.state.list} />
 
@@ -126,7 +135,7 @@ export default class Mean extends React.Component {
                 <div className="content">
                   <span>Sum of Numbers<code className="pull-right">{sum}</code></span> 
                   <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
-                  <span>Amount of Numbers<code style={{clear: "both"}}className="pull-right">{len}</code></span>
+                  <span>Count of Numbers<code style={{clear: "both"}}className="pull-right">{len}</code></span>
                   {this.state.showMeanFirstTime || this.state.showMeanSecondTime ? <hr /> : ""}
                 </div>
               </div>
@@ -140,11 +149,6 @@ export default class Mean extends React.Component {
               <small>The mean is a decimal number. Don't forget the remainder!</small>
             </div>
 
-            <div className="column content animated fadeIn" style={{animationDuration: "3s"}}>
-              <h5>Let's test what you've learned.</h5>
-              <Link to={`${this.rootPath}/quiz`} className="button is-primary is-large">Test Your Mean Skills!</Link>
-            </div>
-
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
@@ -154,11 +158,12 @@ export default class Mean extends React.Component {
     )
   }
 
-  renderQuiz() {
+  renderQuizButton() {
     return (
-      <div className="column content animated fadeIn" style={{animationDuration: "3s"}}>
-        <h5>You're off the hook!</h5>
-        <Link to="/median" className="button is-primary is-large">Learn the Median</Link>
+      <div className="column content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
+        <hr/>
+        <h5>Let's test what you've learned.</h5>
+        <Link to={`${this.rootPath}/quiz`} className="button is-primary is-large">Test Your Mean Skills!</Link>
       </div>
     )
   }

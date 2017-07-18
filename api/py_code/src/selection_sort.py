@@ -1,18 +1,19 @@
 def selection_sort(numbers):
+  '''Finds minimum and moves it to the front until sorted.'''
   # move through unsorted part of list
-  for i in range(0, len(numbers)):
-
+  for start_index, start_value in enumerate(numbers):
     # find where the minimum is
-    min_index = i
-    for j in range(i + 1, len(numbers)):
+    min_index = start_index
+    unsorted_part = numbers[(start_index + 1):]
 
+    for unsorted_index, value in enumerate(unsorted_part):
+      inner_index = unsorted_index + start_index + 1
       # continue to update the minimum index
-      if numbers[j] < numbers[min_index]:
-        min_index = j
+      if value < numbers[min_index]:
+        min_index = inner_index
 
     # bring minimum value to the front by swapping
-    temp_number = numbers[min_index]
-    numbers[min_index] = numbers[i]
-    numbers[i] = temp_number
+    numbers[start_index], numbers[min_index] = \
+      numbers[min_index], numbers[start_index]
   
   return numbers
