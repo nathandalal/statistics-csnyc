@@ -1,7 +1,7 @@
 import React from 'react'
 import bowser from 'bowser'
 
-const NumberCircle = ({ n, active, size, color }) => {
+const NumberCircle = ({ n, active, size, type }) => {
   let getAnimation = () => {
     let animations = ["zoomIn", "bounce", "jackInTheBox", 
                     "fadeInDown", "bounceIn", "tada"]
@@ -9,8 +9,8 @@ const NumberCircle = ({ n, active, size, color }) => {
   }
 
   return (
-    <span className={`tag ${active ? `is-light animated ${getAnimation()}` : "is-info"} is-${size}`} 
-      style={{padding:"10px", backgroundColor: color}}>
+    <span className={`tag ${type ? `is-${type}` : (active ? `is-light animated ${getAnimation()}` : "is-info")} is-${size}`} 
+      style={{padding:"10px"}}>
       {n >= 10 ? n : <span>&nbsp;{n}&nbsp;</span>}
     </span>
   )
@@ -23,7 +23,7 @@ const ListRenderer = ({ list, activeIndex, size="large", colorList }) => {
         <div className="column" key={index}>
           <NumberCircle n={number} 
             active={index == activeIndex} size={size} 
-            color={colorList && colorList[index] ? colorList[index] : ""}/>
+            type={colorList && colorList[index] ? colorList[index] : ""}/>
         </div>))}
     </div>
   )

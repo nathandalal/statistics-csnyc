@@ -19,8 +19,8 @@ export default class Mean extends React.Component {
     window.scrollTo(0, 0)
     this.state = {
       tabs: [
-        {path: null,            name: "Walkthrough",    icon: "list"},
-        {path: "quiz",          name: "Quiz",           icon: "pencil"}
+        {path: null,            name: "Summing and Counting for the Mean",    icon: "list"},
+        {path: "quiz",          name: "Quiz",                                 icon: "pencil"}
       ],
       list: generateList(),
       highlightIndex: -1
@@ -92,8 +92,7 @@ export default class Mean extends React.Component {
 
   renderLoop() {
     return (
-      <div className="columns is-multiline is-desktop" style={{marginTop: "80px"}}>
-        <hr/>
+      <div id="summation" className="columns is-multiline is-desktop" style={{marginTop: "80px"}}>
         <div className="column is-7-widescreen is-12-desktop">
           <div className="content">
             <h3>Looping Over a List</h3>
@@ -118,7 +117,6 @@ export default class Mean extends React.Component {
     let len = this.state.list.length
     return (
       <div className="columns is-multiline is-desktop" style={{marginTop: "80px"}}>
-        <hr/>
         <div className="column is-7-widescreen is-12-desktop">
           <div className="content">
             <h3>Calculating the Mean</h3>
@@ -152,7 +150,7 @@ export default class Mean extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"mean.py"} highlightIndex={11}/>
+          <Code fileName={"mean.py"} highlightIndex={13}/>
         </div>
       </div>
     )
@@ -160,7 +158,7 @@ export default class Mean extends React.Component {
 
   renderQuizButton() {
     return (
-      <div className="column content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
+      <div className="content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
         <hr/>
         <h5>Let's test what you've learned.</h5>
         <Link to={`${this.rootPath}/quiz`} className="button is-primary is-large">Test Your Mean Skills!</Link>

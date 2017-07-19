@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Slider from 'react-rangeslider'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 import ListRenderer from '../list_renderer.jsx'
 
 export default class SelectionSortVisual extends React.Component {
   constructor(props) {
-    console.log(props)
     super(props)
     this.state = {
       inputList: "",
@@ -41,7 +41,11 @@ export default class SelectionSortVisual extends React.Component {
   }
 
   buildColorList() {
-    return this.props.list.map((n, i) => (i < this.state.currentOuterIndex) ? "#00d1b2" : "")
+    return this.props.list.map((n, i) => (
+      (i < this.state.currentOuterIndex || 
+        (i == this.state.currentOuterIndex && this.state.makingSwap) ||
+        (i == this.state.currentMinimumIndex && !this.state.makingSwap)) ? "primary" : ""
+    ))
   }
 
   changeDelay(seconds) {
@@ -95,8 +99,8 @@ export default class SelectionSortVisual extends React.Component {
     let ms = -delayms
 
     for(let outerIndex = 0; outerIndex < list.length; outerIndex++) {
-      this.updateCurrentOuterIndex(outerIndex, list[outerIndex], ms = ms + (delayms * 2))
-      this.initCurrentMinimumIndex(outerIndex, ms = ms + delayms)
+      this.updateCurrentOuterIndex(outerIndex, list[outerIndex], ms = ms + delayms)
+      this.initCurrentMinimumHighlight(outerIndex, list[outerIndex], ms = ms + delayms)
       let minimumIndex = outerIndex
 
       for(let innerIndex = outerIndex + 1; innerIndex < list.length; innerIndex++) {
@@ -123,21 +127,20 @@ export default class SelectionSortVisual extends React.Component {
   updateCurrentOuterIndex(index, value, delayms, finalUpdate = false) {
     this.timeouts.push(setTimeout((() => {
       if(finalUpdate) this.setState({currentOuterIndex: index, currentInnerIndex: index, currentMinimumIndex: index, makingSwap: false})
-      else this.setState({currentOuterIndex: index, makingSwap: false, changingStartIndex: true})
+      else this.setState({currentOuterIndex: index, currentMinimumIndex: index, makingSwap: false, changingStartIndex: true})
       this.props.updateHighlightStep(finalUpdate ? -8 : 1)
     }).bind(this), delayms))
   }
 
-  initCurrentMinimumIndex(index, delayms) {
+  initCurrentMinimumHighlight(index, delayms) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentMinimumIndex: index, changingStartIndex: false})
       this.props.updateHighlightStep(3)
     }).bind(this), delayms))
   }
 
   updateCurrentInnerIndex(index, delayms) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentInnerIndex: index, makingComparison: false, changingMinimum: false})
+      this.setState({currentInnerIndex: index, makingComparison: false, changingStartIndex: false, changingMinimum: false})
       this.props.updateHighlightStep(6)
     }).bind(this), delayms))
   }
@@ -173,14 +176,11 @@ export default class SelectionSortVisual extends React.Component {
 
   render() {
     return (
-      <div id="selection-sort-visual">
-        <button className="button is-small pull-right" 
-          onClick={(() => this.setState({showControls: !this.state.showControls})).bind(this)}>
-          {this.state.showControls ? "Hide" : "Show"} Controls
-        </button>
+      <div>
+        {this.renderTopButtons()}
         <div className="box content">
           <h3 className="title">Visualization: Selection Sort</h3>
-          <h5 className="subtitle">Find the minimum, move it to the front.</h5>
+          <h5 className="subtitle">Find the minimum, swap to bring it to the front.</h5>
           <hr />
           {this.state.showControls ? this.renderAnimationController() : ""}
           {this.state.showControls ? <hr /> : ""}
@@ -188,8 +188,22 @@ export default class SelectionSortVisual extends React.Component {
         </div>
 
         <h6>{this.state.currentOuterIndex == this.props.list.length ? "Now that " : "Once "} 
-          we have the sum and the total count of numbers, we have all we need to compute the mean!
+          we have the numbers sorted, we will move on to compute the median!
         </h6>
+      </div>
+    )
+  }
+
+  renderTopButtons() {
+    return (
+      <div className="block pull-right">
+        <CopyToClipboard text={this.state.list.join(", ")} onCopy={this.onCopy}>
+          <button className="button is-small">Copy List</button>
+        </CopyToClipboard>
+        <button className="button is-small" 
+          onClick={(() => this.setState({showControls: !this.state.showControls})).bind(this)}>
+          {this.state.showControls ? "Hide" : "Show"} Controls
+        </button>
       </div>
     )
   }
@@ -237,7 +251,8 @@ export default class SelectionSortVisual extends React.Component {
       <div style={{clear:"both"}}>
         <ListRenderer 
           list={this.state.list} 
-          activeIndex={this.state.makingSwap ? this.state.currentMinimumIndex : this.state.currentInnerIndex}
+          activeIndex={this.state.makingSwap ? this.state.currentMinimumIndex : 
+            (this.state.changingStartIndex ? this.state.currentOuterIndex : this.state.currentInnerIndex)}
           colorList={this.buildColorList()} />
         <div className="columns">
           <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentOuterIndex - 2) * (12 / this.props.list.length)), 6)}`} >
@@ -249,9 +264,11 @@ export default class SelectionSortVisual extends React.Component {
                     this.state.changingStartIndex ? "Changing Start Index" : (
                       this.state.changingMinimum ? "Changing Minimum Index" : `Moving Through List`)))}
               </span> : ""}
-              <span style={{clear: "both"}} className={`tag ${this.state.currentOuterIndex == this.props.list.length ? "is-success" : "is-dark"} pull-right`}>
+              <span style={{clear: "both"}} className={`tag ${this.state.currentOuterIndex == this.props.list.length ? "is-primary" : "is-dark"} pull-right`}>
                 {this.state.currentOuterIndex == -1 ? "Waiting..." : 
-                this.state.currentOuterIndex == this.props.list.length ? "Sorted" : `Start Index: ${this.state.currentOuterIndex}`}
+                this.state.currentOuterIndex == this.props.list.length ? 
+                <span><span className="icon is-small"><i className="fa fa-sort-amount-asc"/></span> Sorted</span>
+                : `Start Index: ${this.state.currentOuterIndex}`}
               </span>
               {this.state.currentOuterIndex == this.props.list.length ? (
                 <div>

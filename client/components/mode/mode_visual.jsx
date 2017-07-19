@@ -5,7 +5,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 
 import ListRenderer from '../list_renderer.jsx'
 
-export default class SummationVisual extends React.Component {
+export default class ModeVisual extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -51,7 +51,6 @@ export default class SummationVisual extends React.Component {
       this.setState({inputList: ""})
     }
   }
-
 
   componentWillReceiveProps(nextProps) {
     let l1 = this.props.list
@@ -133,15 +132,15 @@ export default class SummationVisual extends React.Component {
       <div id="summation-visual">
         {this.renderTopButtons()}
         <div className="box">
-          <h3 className="title is-4">Visualization: How to Sum Up a List</h3>
+          <h3 className="title is-4">Visualization: Counting Occurences and Finding Modes (Incomplete)</h3>
           <hr />
           {this.state.showControls ? this.renderAnimationController() : ""}
           {this.state.showControls ? <hr /> : ""}
           {this.renderAnimation()}
         </div>
 
-        <h6>{this.state.currentIndex == this.props.list.length ? "Now that " : "Once "} 
-          we have the sum and the total count of numbers, we have all we need to compute the mean!
+        <h6><strong>{this.state.currentIndex == this.props.list.length ? "Now that " : "Once "}</strong> 
+          we have found all of our modes, we are done!
         </h6>
       </div>
     )

@@ -3,7 +3,6 @@ def get_median(numbers):
     Sorts numbers and returns the middle element 
     or the average of the two middle elements.
   '''
-
   # sort the array
   sorted_numbers = merge_sort(numbers)
   middle_index = int(len(numbers)) / 2
