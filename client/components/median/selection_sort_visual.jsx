@@ -44,7 +44,7 @@ export default class SelectionSortVisual extends React.Component {
     return this.props.list.map((n, i) => (
       (i < this.state.currentOuterIndex || 
         (i == this.state.currentOuterIndex && this.state.makingSwap) ||
-        (i == this.state.currentMinimumIndex && !this.state.makingSwap)) ? "primary" : ""
+        (i == this.state.currentMinimumIndex && !this.state.makingSwap)) ? "primary" : "warning"
     ))
   }
 
@@ -255,7 +255,7 @@ export default class SelectionSortVisual extends React.Component {
             (this.state.changingStartIndex ? this.state.currentOuterIndex : this.state.currentInnerIndex)}
           colorList={this.buildColorList()} />
         <div className="columns">
-          <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentOuterIndex - 2) * (12 / this.props.list.length)), 6)}`} >
+          <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentOuterIndex - 2) * (12 / this.state.list.length)), 6)}`} >
             <div className="box content" style={{maxWidth: "300px"}}>
               {this.state.currentOuterIndex !== this.props.list.length ? 
               <span style={{clear: "both"}} className="tag is-info pull-right">

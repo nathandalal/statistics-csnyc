@@ -21,7 +21,8 @@ export default class Mode extends React.Component {
         {path: null,                name: "Counting for the Mode",        icon: "cubes"},
         {path: "quiz",              name: "Quiz",                         icon: "pencil"}
       ], 
-      list: generateList(8, 1, 10)
+      list: generateList(8, 1, 10),
+      highlightIndex: 3
     }
   }
 
@@ -30,7 +31,7 @@ export default class Mode extends React.Component {
   }
 
   updateHighlightStepSelectionSort(step) {
-    this.setState({highlightIndex: step + 2})
+    this.setState({highlightIndex: step + 5})
   }
 
   render() {

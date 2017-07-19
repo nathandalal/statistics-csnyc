@@ -29,7 +29,7 @@ export default class SummationVisual extends React.Component {
   }
 
   buildColorList() {
-    return this.props.list.map((n, i) => (i < this.state.currentIndex) ? "success" : "")
+    return this.props.list.map((n, i) => (i < this.state.currentIndex) ? "primary" : "warning")
   }
 
   changeDelay(seconds) {
@@ -209,7 +209,7 @@ export default class SummationVisual extends React.Component {
         <div className="columns">
           <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentIndex - 2) * (12 / this.props.list.length)), 6)}`} >
             <div className="box content" style={{maxWidth: "300px"}}>
-              <span className={`tag ${this.state.currentIndex == this.props.list.length ? "is-success" : "is-dark"} pull-right`}>
+              <span className={`tag ${this.state.currentIndex == this.props.list.length ? "is-primary" : "is-light"} pull-right`}>
                 {this.state.currentIndex == -1 ? "Waiting..." : 
                 this.state.currentIndex == this.props.list.length ? "Complete" : `Current Index: ${this.state.currentIndex}`}
               </span>

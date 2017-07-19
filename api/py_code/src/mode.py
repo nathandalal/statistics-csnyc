@@ -10,15 +10,12 @@ def get_modes(numbers):
     else:
       nums_counts[number] = 1
   
-  # find number with most occurences
-  modes = []
-  max_count = 0
-  for number in nums_counts.keys():
-    if nums_counts[number] > max_count:
-      if modes:
-        modes = [number]
-        max_count = nums_counts[number]
-      else:
-        modes = modes + [number]
+  # find numbers with most occurences
+  modes, max_count = [], 0
+  for number, count in nums_counts.items():
+    if count > max_count:
+      modes, max_count = [number], count
+    elif count == max_count:
+      modes = modes + [number]
 
   return modes

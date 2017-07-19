@@ -9,7 +9,7 @@ const NumberCircle = ({ n, active, size, type }) => {
   }
 
   return (
-    <span className={`tag ${type ? `is-${type}` : (active ? `is-light animated ${getAnimation()}` : "is-info")} is-${size}`} 
+    <span className={`tag ${active ? `is-light animated ${getAnimation()}` : (type ? `is-${type}` : "is-info")} is-${size}`} 
       style={{padding:"10px"}}>
       {n >= 10 ? n : <span>&nbsp;{n}&nbsp;</span>}
     </span>

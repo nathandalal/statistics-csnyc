@@ -13,23 +13,29 @@ export default class ModeVisual extends React.Component {
       showControls: false,
 
       delayms: 1000,
+      countMap: {},
       currentIndex: -1, 
-      currentSum: 0,
-      currentCount: 0
+      activeKey: -1,
+      modes: [],
+      maxCount: 0
     }
+
+    this.KEY_SENTINEL = 11
   }
 
   resetState(delayms) {
     this.setState({
       delayms: delayms,
-      currentIndex: -1,
-      currentSum: 0,
-      currentCount: 0
+      countMap: {},
+      currentIndex: -1, 
+      activeKey: -1,
+      modes: [],
+      maxCount: 0
     })
   }
 
   buildColorList() {
-    return this.props.list.map((n, i) => (i < this.state.currentIndex) ? "success" : "")
+    return this.props.list.map((n, i) => (i < this.state.currentIndex) ? "primary" : "warning")
   }
 
   changeDelay(seconds) {
@@ -80,52 +86,89 @@ export default class ModeVisual extends React.Component {
     let delayms = this.state.delayms == 0 ? 100 : this.state.delayms
     let ms = -delayms
 
+    let copyMap = {}
+    let maxCount = 0
+    let modes = []
+
     list.forEach((number, index) => {
       this.updateCurrentIndex(index, ms = ms + delayms)
-      this.updateCurrentSumAddition(number, ms = ms + delayms)
-      this.updateCurrentSum(number, ms = ms + delayms)
-      this.updateCurrentCountAddition(ms = ms + delayms)
-      this.updateCurrentCount(ms = ms + delayms)
+      this.updateActiveKey(number, ms = ms + delayms)
+      this.updateCountMapAtKey(number, ms = ms + delayms)
       if(index == list.length - 1) {
-        this.updateCurrentIndex(index + 1, ms = ms + delayms, true)
+        this.updateCurrentIndex(index + 1, ms = ms + delayms)
+      }
+
+      if(copyMap[number]) copyMap[number] += 1
+      else copyMap[number] = 1
+    })
+
+    Object.keys(copyMap).forEach(key => {
+      this.updateActiveKey(key, ms = ms + delayms, false)
+      this.makeGreaterComparison(copyMap[key], ms = ms + delayms)
+
+      if(maxCount < copyMap[key]) {
+
+        modes = [key]
+        maxCount = copyMap[key]
+        this.updateModes(modes, maxCount, ms = ms + delayms, true)
+
+      } else {
+
+        this.makeEqualComparison(copyMap[key], ms = ms + delayms)
+        if(maxCount == copyMap[key]) {
+          modes = modes.slice()
+          modes.push(key)
+          this.updateModes(modes, maxCount, ms = ms + delayms, false)
+        }
+
       }
     })
+
+    this.updateActiveKey(this.KEY_SENTINEL, ms = ms + delayms, true)
   }
 
   updateCurrentIndex(index, delayms, finalUpdate = false) {
     this.timeouts.push(setTimeout((() => {
       this.setState({currentIndex: index})
-      this.props.updateHighlightStep(finalUpdate ? -8 : 1)
+      this.props.updateHighlightStep(index == this.props.list.length ? 8 : 1)
     }).bind(this), delayms))
   }
 
-  updateCurrentSumAddition(number, delayms) {
+  updateActiveKey(number, delayms, initMap = true) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentSum: `${this.state.currentSum} + ${number}`})
-      this.props.updateHighlightStep(2)
+      this.setState({activeKey: number})
+      this.props.updateHighlightStep(number == this.KEY_SENTINEL ? -8 : (initMap ? 2 : 9))
     }).bind(this), delayms))
   }
 
-  updateCurrentSum(number, delayms) {
+  updateCountMapAtKey(number, delayms) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentSum: parseInt(this.state.currentSum.substr(0, this.state.currentSum.indexOf('+') - 1)) + number})
+      let copyMap = Object.assign({}, this.state.countMap)
+      this.props.updateHighlightStep(copyMap[number] ? 3 : 5)
+      if(copyMap[number]) copyMap[number] += 1
+      else copyMap[number] = 1
+      this.setState({ countMap: copyMap, activeKey: -1 })
     }).bind(this), delayms))
   }
 
-  updateCurrentCountAddition(delayms) {
+  makeGreaterComparison(count, delayms) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentCount: `${this.state.currentCount} + 1` })
-      this.props.updateHighlightStep(3)
+      this.props.updateHighlightStep(10)
     }).bind(this), delayms))
   }
 
-  updateCurrentCount(delayms) {
+  makeEqualComparison(count, delayms) {
     this.timeouts.push(setTimeout((() => {
-      this.setState({currentCount: parseInt(this.state.currentCount.substr(0, this.state.currentCount.indexOf('+') - 1)) + 1})
+      this.props.updateHighlightStep(12)
     }).bind(this), delayms))
   }
 
-
+  updateModes(modes, maxCount, delayms, greaterComparison) {
+    this.timeouts.push(setTimeout((() => {
+      this.props.updateHighlightStep(greaterComparison ? 11 : 13)
+      this.setState({ modes: modes, maxCount: maxCount })
+    }).bind(this), delayms))
+  }
 
   render() {
     return (
@@ -199,25 +242,59 @@ export default class ModeVisual extends React.Component {
   }
 
   renderAnimation() {
+    let { countMap } = this.state
+
+    let table_rows = Object.keys(countMap).map(key => (
+      <tr key={key} className={this.state.activeKey == key ? "is-selected" : ""}>
+        <td>{key}</td>
+        <td>{countMap[key]}</td>
+      </tr>
+    ))
+    if (!(this.state.activeKey == -1 || 
+        this.state.activeKey == this.KEY_SENTINEL ||
+        this.state.countMap[this.state.activeKey]))
+      table_rows.push((
+        <tr className="is-selected" key={this.state.activeKey}>
+          <td>{this.state.activeKey}</td>
+          <td>New</td>
+        </tr>
+      ))
+
     return (
-      <div style={{clear:"both"}}>
+      <div style={{clear:"both", minHeight: "350px"}}>
         <ListRenderer 
           list={this.props.list} 
           activeIndex={this.state.currentIndex}
           colorList={this.buildColorList()} />
-        <div className="columns">
-          <div className={`column is-6-desktop is-10-tablet is-offset-${Math.min(parseInt((this.state.currentIndex - 2) * (12 / this.props.list.length)), 6)}`} >
-            <div className="box content" style={{maxWidth: "300px"}}>
-              <span className={`tag ${this.state.currentIndex == this.props.list.length ? "is-success" : "is-dark"} pull-right`}>
-                {this.state.currentIndex == -1 ? "Waiting..." : 
-                this.state.currentIndex == this.props.list.length ? "Complete" : `Current Index: ${this.state.currentIndex}`}
-              </span>
-              <div className="content">
-                <h5 style={{clear:"both"}}>Variables</h5>
-                <span>Sum of Numbers<code className="pull-right">{this.state.currentSum}</code></span> 
-                <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
-                <span>Count of Numbers<code style={{clear: "both"}}className="pull-right">{this.state.currentCount}</code></span>
-              </div> 
+        <div className="content">
+          <div className="columns" style={{clear: 'both'}}>
+            <div className="column">
+              <table className="table is-striped is-narrow">
+                <thead>
+                  <tr>
+                    <th>Element</th>
+                    <th>Occurences</th>
+                  </tr>
+                </thead>
+                  <tbody>{table_rows}</tbody>
+              </table>
+            </div>
+            <div className="column">
+              <div className="box content" style={{maxWidth: "300px", margin: "0 auto"}}>
+                <div className="content">
+                  <span className={`tag ${this.state.currentIndex == this.props.list.length ? (this.state.activeKey == this.KEY_SENTINEL ? "is-primary" : "is-info") : "is-light"} pull-right`}>
+                    {this.state.currentIndex == -1 ? "Waiting..." : 
+                    (this.state.currentIndex == this.props.list.length ? (this.state.activeKey == this.KEY_SENTINEL ? "Complete" : "Step 2: Finding Modes")
+                    : `Step 1: Counting Occurences`)}
+                  </span>
+                  <h5 style={{clear: "both", paddingTop: "10px"}}>Mode Variables</h5>
+                  {this.state.currentIndex == this.props.list.length ? ( <div>
+                    <span>Modes<code className="pull-right">{this.state.modes.length > 0 ? this.state.modes.join(", ") : "None"}</code></span> 
+                    <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
+                    <span>Maximum Occurence<code style={{clear: "both"}}className="pull-right">{this.state.maxCount}</code></span>
+                  </div> ) : "Finding modes not started yet."}
+                </div> 
+              </div>
             </div>
           </div>
         </div>
