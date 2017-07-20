@@ -1,0 +1,33 @@
+def get_median(numbers):
+
+This is the start of a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
+
+
+
+
+
+
+
+
+
+  # sort the array
+
+  sorted_numbers = sorted(numbers)
+
+  middle_index = len(numbers) / 2
+
+
+
+  # pick out the middle index
+
+  if len(numbers) % 2 == 1:
+
+    return sorted_numbers[middle_index]
+
+  # or the average of the two middle indexes
+
+  else:
+
+    return (sorted_numbers[middle_index - 1] +
+    
+            sorted_numbers[middle_index]) / 2.0

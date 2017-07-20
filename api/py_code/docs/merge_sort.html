@@ -1,0 +1,29 @@
+def merge_sort(arr):
+
+Lines that begin with a <code>#</code> are comments. Comments are written to clarify code.<br><br>
+This line explains that we must create some <strong>variables</strong>
+to store what we would like to keep track of.
+
+
+
+  # one element by itself is sorted
+
+  if len(arr) == 1:
+
+    return arr
+
+
+
+  # sort two halves
+
+  mid = len(arr) / 2
+
+  first_half = merge_sort(arr[:mid])
+
+  second_half = merge_sort(arr[mid:])
+
+
+
+  # combine two sorted lists into one sorted list
+  
+  return merge(first_half, second_half)

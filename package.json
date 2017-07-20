@@ -1,0 +1,56 @@
+{
+  "name": "statistics-csnyc",
+  "version": "1.0.0",
+  "description": "Project with MongoDB and CSNYC to develop a computer-science based statistics lesson on mean, median, and mode.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "server": "node app.js",
+    "server:watch": "nodemon app.js",
+    "build": "./node_modules/.bin/webpack -p",
+    "build:watch": "./node_modules/.bin/webpack -d --watch",
+    "dev": "npm run server:watch & npm run build:watch",
+    "start": "npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathandalal/statistics-csnyc.git"
+  },
+  "keywords": [
+    "statistics",
+    "mean",
+    "median",
+    "mode",
+    "csnyc",
+    "api"
+  ],
+  "author": "Nathan Dalal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathandalal/statistics-csnyc/issues"
+  },
+  "homepage": "https://github.com/nathandalal/statistics-csnyc#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "bowser": "^1.7.0",
+    "consolidate": "^0.14.5",
+    "express": "^4.15.3",
+    "nunjucks": "^3.0.1",
+    "react": "^15.6.1",
+    "react-cookies": "^0.1.0",
+    "react-copy-to-clipboard": "^5.0.0",
+    "react-dom": "^15.6.1",
+    "react-rangeslider": "^2.1.0",
+    "react-router-dom": "^4.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.11.0",
+    "webpack": "^3.1.0"
+  }
+}
