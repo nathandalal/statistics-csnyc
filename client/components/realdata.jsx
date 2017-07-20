@@ -18,7 +18,7 @@ export default class RealData extends React.Component {
         {path: "how",       name: "How to Read Data",          icon: "table"},
         {path: "nba",       name: "Playground: Weather",       icon: "sun-o"},
         {path: "weather",   name: "Playground: NBA Stats",     icon: "dribbble"},
-      ], 
+      ]
     }
   }
 
@@ -45,6 +45,4 @@ export default class RealData extends React.Component {
       </div>
     )
   }
-
-
 }

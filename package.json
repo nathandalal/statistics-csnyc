@@ -39,6 +39,7 @@
     "moment": "^2.18.1",
     "mysportsfeeds-node": "^0.2.2",
     "nunjucks": "^3.0.1",
+    "openweather-node": "0.0.4",
     "react": "^15.6.1",
     "react-cookies": "^0.1.0",
     "react-copy-to-clipboard": "^5.0.0",

@@ -7,5 +7,8 @@ module.exports = {
   MSF: {
     username: process.env.MSF_USERNAME,
     password: process.env.MSF_PASSWORD
+  },
+  OWM: {
+    API_KEY: process.env.OWM_API_KEY
   }
 }

@@ -8,6 +8,7 @@ router.use(bodyParser.json())
 
 const PythonCodeHandler = require('./py_code/index')
 const NBAHandler = require('./nba/index')
+const WeatherHandler = require('./weather/index')
 
 const config = require('../config')
 
@@ -30,6 +31,14 @@ var availableRoutes = [
         description: [
             "Gets list of every NBA player currently on a roster.",
         ]
+    },
+    {
+        title: 'Weather Data',
+        routename: '/weather/:city',
+        methods: ["GET"],
+        description: [
+            "Gives list of weather data for 5 days at 3 hour intervals for the given city.",
+        ]
     }
 ]
 
@@ -41,7 +50,7 @@ router.get('/', (req, res) => {
 })
 
 const internalServerError = 
-    (res, reason, source) => res.status(500).send({ error: `Error retrieving data from ${source}.`, reason: reason })
+    (res, route, reason) => res.status(500).send({ error: `Error retrieving data from ${route}.`, reason: reason })
 const badUserRequestError = 
     (res, route, reason) => res.status(400).send({ error: `Invalid user request to ${route} API endpoint.`, reason: reason })
 
@@ -51,11 +60,15 @@ router.get(availableRoutes[0].routename, (req, res) => {
 })
 
 router.get(availableRoutes[1].routename, (req, res) => {
-    try { 
-        NBAHandler.getRoster()
-        .then(data => res.send(data))
-    }
-    catch (e) { return badUserRequestError(res, availableRoutes[1].routename, e) }
+    NBAHandler.getRoster()
+    .then(data => res.send(data))
+    .catch(e => badUserRequestError(res, availableRoutes[2].routename, e))
+})
+
+router.get(availableRoutes[2].routename, (req, res) => {
+    WeatherHandler.getCityWeather(req.params.city)
+    .then(data => res.send(data))
+    .catch(e => badUserRequestError(res, availableRoutes[2].routename, e))
 })
 
 //nothing matched our api requests, return 404

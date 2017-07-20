@@ -6,7 +6,6 @@ export default class NBA extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      player: "Russell Westbrook",
       team: "okc"
     }
   }
@@ -49,17 +48,8 @@ export default class NBA extends React.Component {
       { value: 'WAS', label: 'Washington Wizards' }
     ]
 
-    function logChange(val) {
-      console.log("Selected: " + JSON.stringify(val))
-    }
-
     return (
       <div>
-        <Select 
-          name="player-name" 
-          value={this.state.player} 
-          options={}
-          onChange={(({target}) => this.setState({player: target.value})).bind(this)} />
         <Select
           name="team-name"
           value={this.state.team}
