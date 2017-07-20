@@ -3,6 +3,8 @@ import Code from './code.jsx'
 import Tabs from './tabs.jsx'
 import { Link } from 'react-router-dom'
 
+import NBA from './realdata/nba.jsx'
+
 export default class RealData extends React.Component {
   constructor(props) {
     super(props)
@@ -32,15 +34,17 @@ export default class RealData extends React.Component {
         <div className="columns is-multiline is-desktop">
           <div className="column is-7-widescreen is-12-desktop">
             <div className="content">
-              <h6>Nope, the real data section isn't live yet!</h6>
+              <h6>It's about damn time.</h6>
               <Link to={`${rootPath}/how`} className="button is-primary">Reading Computer Data</Link>
             </div>
           </div>
           <div className="column is-5-widescreen is-12-desktop">
-            No code to show.
+            <NBA />
           </div>
         </div>
       </div>
     )
   }
+
+
 }

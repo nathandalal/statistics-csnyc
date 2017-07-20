@@ -19,8 +19,8 @@ export default class Mean extends React.Component {
     window.scrollTo(0, 0)
     this.state = {
       tabs: [
-        {path: null,            name: "Summing and Counting for the Mean",    icon: "list"},
-        {path: "quiz",          name: "Quiz",                                 icon: "pencil"}
+        {path: null,            name: "Summing for the Mean",     icon: "list"},
+        {path: "quiz",          name: "Quiz",                     icon: "pencil"}
       ],
       list: generateList(),
       highlightIndex: -1
@@ -32,7 +32,7 @@ export default class Mean extends React.Component {
   }
 
   updateHighlightStep(step) {
-    this.setState({highlightIndex: step + 7})
+    this.setState({highlightIndex: step + 6})
   }
 
   render() {
@@ -98,8 +98,9 @@ export default class Mean extends React.Component {
             <h3>Looping Over a List</h3>
             <h6>
             In order to calculate the mean, we need to know the <b>sum of all elements</b> and <b>how many elements there are</b>.
-            Follow along with the animation and see how the mean is computed.
+            Follow along with the animation and see how a computer calculates the mean.
             </h6>
+            <h6>You can use the same strategy when you calculate the mean!</h6>
             <SummationVisual list={this.state.list} 
               changeList={this.changeList.bind(this)} 
               updateHighlightStep={this.updateHighlightStep.bind(this)}  />

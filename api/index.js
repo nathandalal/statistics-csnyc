@@ -6,7 +6,8 @@ router.use(express.static('public'))
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
-const PythonCodeHandler = require('./py_code/py_api')
+const PythonCodeHandler = require('./py_code/index')
+const NBAHandler = require('./nba/index')
 
 const config = require('../config')
 
@@ -20,6 +21,14 @@ var availableRoutes = [
             "Pass the name of the file without a extension.",
             "Options: mean, median, merge, merge_sort, mode, selection_sort",
             "Output format: JSON object with src and docs as keys, both are arrays of equal length.",
+        ]
+    },
+    {
+        title: 'NBA Roster',
+        routename: '/nba/roster',
+        methods: ["GET"],
+        description: [
+            "Gets list of every NBA player currently on a roster.",
         ]
     }
 ]
@@ -39,6 +48,14 @@ const badUserRequestError =
 router.get(availableRoutes[0].routename, (req, res) => {
     try { return res.send(PythonCodeHandler.getPyFile(req.params.filename)) }
     catch (e) { return badUserRequestError(res, availableRoutes[0].routename, e) }
+})
+
+router.get(availableRoutes[1].routename, (req, res) => {
+    try { 
+        NBAHandler.getRoster()
+        .then(data => res.send(data))
+    }
+    catch (e) { return badUserRequestError(res, availableRoutes[1].routename, e) }
 })
 
 //nothing matched our api requests, return 404

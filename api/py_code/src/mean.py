@@ -1,6 +1,5 @@
 def get_mean(numbers):
   '''Divides sum by count of numbers to get the mean.'''
-
   # keep track of sum and count of elements
   sum_of_numbers = 0
   count_of_numbers = 0
