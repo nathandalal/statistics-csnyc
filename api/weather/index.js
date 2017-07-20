@@ -1,4 +1,3 @@
-const weather = require("Openweather-Node")
 const auth = require('../../config').OWM
 const axios = require('axios')
 
