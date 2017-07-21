@@ -60,9 +60,9 @@ router.get(availableRoutes[0].routename, (req, res) => {
 })
 
 router.get(availableRoutes[1].routename, (req, res) => {
-    NBAHandler.getRoster()
+    NBAHandler.getRoster(req.query.waittime)
     .then(data => res.send(data))
-    .catch(e => badUserRequestError(res, availableRoutes[2].routename, e))
+    .catch(e => internalServerError(res, availableRoutes[2].routename, e))
 })
 
 router.get(availableRoutes[2].routename, (req, res) => {

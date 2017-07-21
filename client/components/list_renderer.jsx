@@ -20,7 +20,7 @@ const ListRenderer = ({ list, activeIndex, size="large", colorList }) => {
   return (
     <div className="columns is-mobile is-multiline" style={{margin: "0 auto", width: "100%"}}>
       {list.map((number, index) => (
-        <div className="column" key={index}>
+        <div className="column is-3-mobile" key={index}>
           <NumberCircle n={number} 
             active={index == activeIndex} size={size} 
             type={colorList && colorList[index] ? colorList[index] : ""}/>
