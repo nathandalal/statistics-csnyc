@@ -54,7 +54,7 @@ export default class Code extends React.Component {
                 onMouseLeave={this.focusOnCodeLine.bind(this, index, false)}
                 dangerouslySetInnerHTML={{__html: line}}
                 style={{
-                  backgroundColor: index == this.props.highlightIndex ? "#989cb3" :
+                  backgroundColor: index == this.props.highlightIndex ? "#575975" :
                                   (index == this.state.focusIndex ? "#4c5067" : ""),
                   width: "100%",
                   display: "inline-block",

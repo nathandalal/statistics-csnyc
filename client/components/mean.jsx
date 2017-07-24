@@ -151,7 +151,7 @@ export default class Mean extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"mean.py"} highlightIndex={13}/>
+          <Code fileName={"mean.py"} highlightIndex={12}/>
         </div>
       </div>
     )

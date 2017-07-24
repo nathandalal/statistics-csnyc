@@ -49,7 +49,7 @@ export default class NBA extends React.Component {
       })
 
       this.setState({
-        rosterLoaded: moment(data.lastUpdatedOn, "YYYY-MM-DD hh:mm:ss A").subtract(5, 'seconds'),
+        rosterLoaded: moment(data.lastUpdatedOn, "YYYY-MM-DD hh:mm:ss A").subtract(10, 'seconds'),
         rosters: rosters
       })
 
