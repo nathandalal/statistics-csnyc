@@ -4,10 +4,10 @@ def get_median(numbers):
     or the average of the two middle elements.
   '''
   # sort the array
-  sorted_numbers = merge_sort(numbers)
+  sorted_numbers = selection_sort(numbers)
   middle_index = int(len(numbers)) / 2
 
-    # pick out the middle index
+  # pick out the middle index
   if is_odd(len(numbers)):
     return sorted_numbers[middle_index]
   # or the average of the two middle indexes

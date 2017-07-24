@@ -1,33 +1,41 @@
-def get_median(numbers):
+The <code>def</code> keyword defines a function. We see that we have named our function <code>get_median</code>.<br><br>
+A function expects an input (here we expect a list that we call <code>numbers</code>).
+A function also may return an output; in this case we want to find the mean of this list.<br><br>
+Finally, the <code>:</code> at the end of the line and tne indenting in the rest of the code tells us that the code below is part of our function.
 
 This is the start of a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
 
+This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
+
+This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
+
+This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
+
+Lines that begin with a <code>#</code> are comments. Comments are written to clarify code.<br><br>
+This line explains that we must start finding the median by <strong>sorting</strong> the array.
+
+We call our <code>selection_sort</code> function we wrote above to sort the list. We store our sorted list in our original variable.
+
+We need to find the index that accesses the middle of our list. The <code>len()</code> function takes a list and returns its length. We divide this by 2 to get the middle, and we make sure to divide using integers. We do not want a decimal index (we don't want the 3.5th element of an array, for example).
 
 
 
+This is a comment indicating we are moving on to picking the median using the middle index.
 
+The <code>is_odd()</code> function here doesn't really exist. We've written it to make it simple to understand.
+The way to write this line of code in Python without an <code>is_odd()</code> function would be like this:<br><br>
+<pre>if len(numbers) % 2 == 1:</pre><br>
+The <code>%</code> operator gets the remainder of a whole number or integer division problem. If the remainder when you divide by 2 is 1, the number is odd.
 
+If the length is odd, there is only one true middle index, and we can return the list value at that index.
 
+This is a comment indicating we are moving on to the case where the list is even in length.
 
+The <code>else</code> operator says "do this if the previous <code>if</code> block did not work out". The <code>:</code> is for, as always, to signify that we
+are starting a new indented block of code under <code>else</code>.
 
-  # sort the array
+We are dividing the middle index and the one before it and dividing by 2 to get the average of the two middle elements.<br><br>
+Lists in Python are <b>zero-indexed</b>. This means that index 4 is actually getting the 5th element of the list, and index 0 the 1st element in the list. If the list is even, this means that out of the two middle indexes, the value stored in the variable <code>middle_index</code> is the higher index and that is why we subtract by 1 to get the other middle index.<br><br>
 
-  sorted_numbers = sorted(numbers)
-
-  middle_index = len(numbers) / 2
-
-
-
-  # pick out the middle index
-
-  if len(numbers) % 2 == 1:
-
-    return sorted_numbers[middle_index]
-
-  # or the average of the two middle indexes
-
-  else:
-
-    return (sorted_numbers[middle_index - 1] +
-    
-            sorted_numbers[middle_index]) / 2.0
+We are dividing the middle index and the one before it and dividing by 2 to get the average of the two middle elements.<br><br>
+Lists in Python are <b>zero-indexed</b>. This means that index 4 is actually getting the 5th element of the list, and index 0 the 1st element in the list. If the list is even, this means that out of the two middle indexes, the value stored in the variable <code>middle_index</code> is the higher index and that is why we subtract by 1 to get the other middle index.

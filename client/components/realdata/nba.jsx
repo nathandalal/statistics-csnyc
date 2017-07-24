@@ -11,7 +11,10 @@ export default class NBA extends React.Component {
     }
   }
 
-  componentDidMount() { this.loadNBARoster() }
+  componentDidMount() { 
+    this._isMounted = true
+    this.loadNBARoster()
+  }
 
   loadNBARoster(waittime = 5000) {
     this.setState({rosterLoaded: false, rosters: []})
@@ -48,13 +51,17 @@ export default class NBA extends React.Component {
         roster["typicalHeight"] = {mean: get_mean(heights), median: get_median(heights), modes: get_modes(heights)}
       })
 
-      this.setState({
+      if(this._isMounted) this.setState({
         rosterLoaded: moment(data.lastUpdatedOn, "YYYY-MM-DD hh:mm:ss A").subtract(10, 'seconds'),
         rosters: rosters
       })
 
     })
     .catch(e => console.error(e))
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   render() {
