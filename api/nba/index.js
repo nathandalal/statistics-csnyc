@@ -8,8 +8,8 @@ let transformPlayerName = (playerName) => playerName.toLowerCase().replace(" ", 
 
 let backupRoster = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'roster_backup.json'), 'utf8'));
 
-let getActiveRoster = (season = "latest", date = moment().subtract(10, 'days').format("YYYYMMDD")) => new Promise((resolve, reject) => {
-  axios.get(`${season}/active_players.json?fordate=${date}`, {
+let getActiveRoster = (season = "latest") => new Promise((resolve, reject) => {
+  axios.get(`${season}/active_players.json`, {
     auth: auth,
     baseURL: "https://api.mysportsfeeds.com/v1.1/pull/nba/",
   })

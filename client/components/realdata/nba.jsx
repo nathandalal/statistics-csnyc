@@ -3,17 +3,49 @@ import Select from 'react-select'
 import axios from 'axios'
 import moment from 'moment'
 
+import { Link } from 'react-router-dom'
+
 export default class NBA extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      team: "ATL"
+      team: "ATL",
+      questions: [
+        {
+          mean: 0,
+          median: 0,
+          modes: [],
+          modesString: ""
+        },
+        {
+          mean: 0,
+          median: 0,
+          modes: [],
+          modesString: ""
+        }
+      ]
     }
   }
 
   componentDidMount() { 
     this._isMounted = true
-    this.loadNBARoster()
+    this.setState({
+      questions: [
+        {
+          mean: 0,
+          median: 0,
+          modes: [],
+          modesString: ""
+        },
+        {
+          mean: 0,
+          median: 0,
+          modes: [],
+          modesString: ""
+        }
+      ]
+    })
+    if(!this.state.rosters) this.loadNBARoster()
   }
 
   loadNBARoster(waittime = 5000) {
@@ -77,7 +109,6 @@ export default class NBA extends React.Component {
   renderRosterVisualization() {
     let currentRoster = this.state.rosters[this.state.team]
     let players = currentRoster.players.sort((a, b) => a.externalMapping ? a : b)
-    console.log(currentRoster)
 
     return (
       <div className="container content">
@@ -93,9 +124,19 @@ export default class NBA extends React.Component {
         </small></h6>
 
         <div className="columns container content">
-          {this.renderCard(currentRoster.typicalAge, "Age")}
-          {this.renderCard(currentRoster.typicalHeight, "Height")}
-          {this.renderCard(currentRoster.typicalWeight, "Weight (lbs)")}
+          {this.renderCard(Object.assign({}, currentRoster.typicalHeight), "Height")}
+        </div>
+
+        <h6 className="has-text-centered" style={{paddingBottom: "20px"}}>
+          We've given you the mean, median, and mode heights for <b>
+          {this.state.team == "BRO" ? "BKN" : (this.state.team == "OKL" ? "OKC" : this.state.team)}</b>. Now 
+          go find the typical age and weight!
+        </h6>
+
+        <div className="columns container content">
+          {this.renderCard(Object.assign({}, currentRoster.typicalAge), "Age")}
+          <div className="column is-2"></div>
+          {this.renderCard(Object.assign({}, currentRoster.typicalWeight), "Weight (lbs)")}
         </div>
 
         <div className="container"><div className="columns is-multiline">
@@ -104,8 +145,7 @@ export default class NBA extends React.Component {
             style={{maxWidth: "260px", margin: "20px auto"}}>
             <div className="card-image">
               <figure className="image is-4by3">
-                <img src={player.externalMapping && player.externalMapping.ID ?
-                  `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.externalMapping.ID}.png` : "/images/default_face.png"} alt="No Picture Available" />
+                <img src={player.officialImageSrc ? player.officialImageSrc : "/images/default_face.png"} alt="No Picture Available" />
               </figure>
             </div>
             <div className="card-content">
@@ -129,18 +169,92 @@ export default class NBA extends React.Component {
       data["mean"] = `${(data["mean"] / 12).toFixed(2)}\'`
       data["median"] = `${parseInt(data["median"] / 12, 10)}\'${parseInt(data["median"] % 12, 10)}\"`
       data["modes"] = data["modes"].map(datum => `${parseInt(datum / 12, 10)}\'${parseInt(datum % 12, 10)}\"`)
-    } else data["mean"] = data["mean"].toFixed(2)
 
-    return (
-      <div className="box content container column is-4" style={{maxWidth: "260px", margin: "20px auto"}}>
-        <h5 style={{clear:"both"}}>Average {title}</h5>
-        <span>Mean<code className="pull-right">{data["mean"]}</code></span> 
-        <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
-        <span>Median<code className="pull-right">{data["median"]}</code></span> 
-        <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
-        <span>Modes<code className="pull-right">{data["modes"].join(", ")}</code></span> 
-      </div> 
-    )
+      return (
+        <div className="box content container column is-4" style={{maxWidth: "260px", margin: "20px auto"}}>
+          <h5 style={{clear:"both"}}>Average {title}</h5>
+          <span>Mean<code className="pull-right">{data["mean"]}</code></span> 
+          <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
+          <span>Median<code className="pull-right">{data["median"]}</code></span> 
+          <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
+          <span>Modes<code className="pull-right">{data["modes"].join(", ")}</code></span> 
+        </div> 
+      )
+    }
+    else {
+      let renderInput = ((info) => (
+        <div className="field">
+          <label className="label">{info.label}</label>
+          <p className="control has-icons-left has-icons-right">
+            <input className="input" type={info.key == "modes" ? "text" : "number"} 
+              step="0.01" value={info.value} disabled={this.isCorrectInput(info)}
+              onChange={((event) => {
+                let stateChange = {questions: []}
+                stateChange.questions = Object.assign({}, this.state.questions)
+
+                if(info.key == "modes") {
+                  stateChange["questions"][info.questionIndex].modesString = event.target.value
+                  try {
+                    let newModesList = event.target.value.split(",").map(str => parseInt(str.trim(), 10))
+                    stateChange["questions"][info.questionIndex].modes = newModesList
+                    this.setState(stateChange)
+                  } catch (e) { console.log(e) 
+                  } finally {
+                    this.setState(stateChange)
+                  }
+                } else {
+                  stateChange.questions[info.questionIndex][info.key] = parseFloat(event.target.value)
+                  this.setState(stateChange)
+                }
+              }).bind(this)} />
+            <span className="icon is-small is-left">
+              <i className={`fa fa-${info.icon}`} />
+            </span>
+            <span className="icon is-small is-right">
+              <i className="fa fa-check" style={{color: this.isCorrectInput(info) ? "#23d160" : ""}}/>
+            </span>
+          </p>
+        </div>
+      )).bind(this)
+
+      let index = title == "Age" ? 0 : 1
+
+      return (
+        <div className="box container column is-5" style={{maxWidth: "400px", height: "350px"}} >
+          <h4>{title}</h4>
+          <h6><small>
+            If you need help on the <Link to="/mean">mean</Link>, <Link to="/mean">median</Link>,
+            or <Link to="/mean">mode</Link>, we're here for you.
+          </small></h6>
+          {renderInput({
+            label: "Mean", icon: "list", 
+            value: this.state.questions[index].mean, key: "mean", questionIndex: index
+          })}
+          {renderInput({
+            label: "Median", icon: "balance-scale",
+            value: this.state.questions[index].median, key: "median", questionIndex: index
+          })}
+          {renderInput({
+            label: "Modes", icon: "group",
+            value: this.state.questions[index].modesString, key: "modes", questionIndex: index
+          })}
+        </div>
+      )
+    }
+  }
+
+  isCorrectInput(info) {
+    let dataObjKey = info.questionIndex == 0 ? "typicalAge" : "typicalWeight"
+
+    if(info.key == "modes") {
+      let areSameArray = (l1, l2) => l1.length==l2.length && l1.every((v,i)=> v === l2[i])
+      return areSameArray(
+        this.state.questions[info.questionIndex].modes.sort((a, b) => a > b), 
+        this.state.rosters[this.state.team][dataObjKey].modes.sort((a, b) => a > b)
+      )
+    }
+
+    return Math.abs(info.value - this.state.rosters[this.state.team][dataObjKey][info.key]) < 0.01
   }
 
   getTeams() {

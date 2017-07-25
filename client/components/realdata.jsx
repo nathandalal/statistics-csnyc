@@ -85,6 +85,9 @@ export default class RealData extends React.Component {
                 that by writing <code>data.iss_position.latitude</code>.
                 You'll see an example of showing a map based on the location of a place on the next page.
               </p>
+              <p>
+                If you want to know more about JSON, you can <a href="http://www.json.org/">click on this link</a>.
+              </p>
 
               <h3>Playing With Real Data!</h3>
               <p>

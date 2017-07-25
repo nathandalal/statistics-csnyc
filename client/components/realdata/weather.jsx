@@ -45,7 +45,11 @@ export default class Weather extends React.Component {
     let modes = data && data.list ? get_modes(weatherList.map(n => parseInt(n * 10, 10))).map(n => (n / 10.0).toFixed(1)) : ""
 
     return (
-      <div className="content">
+      <div className="content container">
+        <h6>
+          This page demonstrates how to use API data to run mean, median, and mode analysis
+          on the weather forecast for the next five days in any city.
+        </h6>
         <div className="field has-addons">
           <div className="control is-expanded">
             <input className="input is-fullwidth" type="text" value={this.state.city} 
@@ -61,7 +65,7 @@ export default class Weather extends React.Component {
         </div>
 
         {data ? 
-        <div className="container">
+        <div>
             <div className="box content container column is-4" style={{maxWidth: "260px", margin: "20px auto"}}>
               <h5 style={{clear:"both"}}>Average Weather</h5>
               <span>Mean<code className="pull-right">{mean}</code></span> 
@@ -70,7 +74,7 @@ export default class Weather extends React.Component {
               <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
               <span>Modes<code className="pull-right">{modes.length <= 3 ? modes.join(", ") : "More than 3 modes."}</code></span>
             </div>
-            <LeafletMap lat={data.city.coord.lat} lng={data.city.coord.lon} height="250" />
+            <LeafletMap lat={data.city.coord.lat} lng={data.city.coord.lon} height="350" />
             <div className="columns is-multiline" style={{marginTop: "20px"}}>
             {data.list.map(point => (
               <div className="box content container column is-4" style={{maxWidth: "300px", margin: "20px auto"}}
