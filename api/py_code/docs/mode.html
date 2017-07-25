@@ -1,6 +1,6 @@
-The <code>def</code> keyword defines a function. We see that we have named our function <code>get_median</code>.<br><br>
+The <code>def</code> keyword defines a function. We see that we have named our function <code>get_modes</code>.<br><br>
 A function expects an input (here we expect a list that we call <code>numbers</code>).
-A function also may return an output; in this case we want to find the mean of this list.<br><br>
+A function also may return an output; in this case we want to find all the modes of this list.<br><br>
 Finally, the <code>:</code> at the end of the line and tne indenting in the rest of the code tells us that the code below is part of our function.
 
 This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
@@ -11,42 +11,51 @@ This structure is sometimes called a <b>map</b> as well.
 
 We <b>initialize a dictionary</b> with the curly braces <code>{}</code>, as shown in the code.
 We access elements in the dictionary by using brackets <code>[]</code>, just like arrays.<br><br>
-We want this dictionary to map <b>numbers in the list</b> to <b>how many times they appear</b>.
+We want this dictionary to map <b>numbers in the list</b> to <b>how many times they appear</b>.<br><br>
+Recall that a dictionary is a structure that <b>maps a key to a value</b>.
 
 
 
 Now we are moving on to counting how many times each number appears, as indicated by this comment.
 
 We make a variable called <code>number</code> that stores each element of our <code>numbers</code> list, one by one.<br><br>
-This construction is called a <strong>for loop</strong>. The use of the keyword <code>for</code> allows us to walk through our list, getting each <code>number</code> one by one until we have gone through every <code>number in numbers</code>.<br><br>
+This construction is called a <strong>for loop</strong>. The use of the keyword <code>for</code> allows us to walk through our list, 
+getting each <code>number</code> one by one until we have gone through every <code>number in numbers</code>.<br><br>
 The <code>:</code> and indenting is used again to show that the next four lines are part of our <strong>for loop</strong>.
 
 This <b>if</b> statement checks if we have already inserted the number as a key in our dictionary.<br><br>
-Python will give us an error if we try to access an element that is not in the dictionary.
+Python will give us an error if we try to access an element that is not in the dictionary, so we must check this.
 
 In this case, this number was already in the dictionary, so we can simply update its value to show that <b>we have found the number one more time</b>.
 
 This is the <b>else</b> case, indicating that the dictionary does not have this key. The next line handles this case.
 
 We are seeing the key for the first time, which means that so far, we have seen it once. We assign its value to be one,
-because so far we have seen it once.
+because so far we have seen it once. We do not add one because the key has not been added to the dictionary until we 
+execute this line.
 
 
   
-This comment tells us we will now use our dictionary to find 
+This comment tells us we will now use our dictionary to find the modes in our list.
 
-  modes, max_count = [], 0
+We are initializing the <code>modes</code> variable to an empty array and the <code>max_count</code> we have found so far to a zero.
 
-  for number, count in nums_counts.items():
+We are using a <b>for loop</b> over a dictionary, so the syntax is slightly different. We call the <code>items()</code> function
+on the dictionary to have it return the key and the value together.<br><br>
+Recall that the dictionary stores a <code>number</code> from the list as its key and its <code>count</code> of appearances as its value,
+so that is why we name the variables we store from each pass of the loop like that.
 
-    if count > max_count:
+This condition checks if we have a new mode and the old modes are no longer modes. If we found a new maximum count, 
+and the old <code>max_count</code> is no longer the highest, then all the modes we found from before are not the highest.
 
-      modes, max_count = [number], count
+In the case where we have found a number with more occurences than what we have stored, we must reset our <code>modes</code> list
+to only have this high number, and set the new <code>max_count</code> to the occurence of that new number.
 
-    elif count == max_count:
+This condition checks if we have found a number in our list with the same count as the existing <code>modes</code>.
 
-      modes = modes + [number]
+In this case, where we found another mode to add to our list, we simply add our existing <code>modes</code> list and a list containing just
+the new number to get a new list which has every mode we have found so far.
 
 
 
-  return modes
+Once we have all of our modes stored, we can simply return our <code>modes</code> list as the answer.

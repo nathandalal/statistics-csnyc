@@ -148,21 +148,21 @@ export default class SelectionSortVisual extends React.Component {
   makeComparison(minimumIndex, innerIndex, delayms) {
     this.timeouts.push(setTimeout((() => {
       this.setState({makingComparison: true})
-      this.props.updateHighlightStep(9)
+      this.props.updateHighlightStep(8)
     }).bind(this), delayms))
   }
 
   updateCurrentMinimumIndex(index, delayms) {
     this.timeouts.push(setTimeout((() => {
       this.setState({makingComparison: false, changingMinimum: true, currentMinimumIndex: index})
-      this.props.updateHighlightStep(10)
+      this.props.updateHighlightStep(9)
     }).bind(this), delayms))
   }
 
   updateCurrentList(list, delayms) {
     this.timeouts.push(setTimeout((() => {
       this.setState({list: list, makingComparison: false, changingMinimum: false, makingSwap: true})
-      this.props.updateHighlightStep(13)
+      this.props.updateHighlightStep(12)
     }).bind(this), delayms))
   }
 

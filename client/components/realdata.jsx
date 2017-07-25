@@ -22,6 +22,10 @@ export default class RealData extends React.Component {
     }
   }
 
+  componentWillMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     let tabName = this.props.match.params.tab
     let sampleAPICode = '{\

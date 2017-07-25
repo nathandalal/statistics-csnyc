@@ -7,10 +7,9 @@ def selection_sort(numbers):
     unsorted_part = numbers[(start_index + 1):]
 
     for unsorted_index, value in enumerate(unsorted_part):
-      inner_index = unsorted_index + start_index + 1
       # continue to update the minimum index
       if value < numbers[min_index]:
-        min_index = inner_index
+        min_index = unsorted_index + start_index + 1
 
     # bring minimum value to the front by swapping
     numbers[start_index], numbers[min_index] = \

@@ -1,35 +1,49 @@
-def selection_sort(numbers):
+The <code>def</code> keyword defines a function. We see that we have named our function <code>get_modes</code>.<br><br>
+A function expects an input (here we expect a list that we call <code>numbers</code>).
+A function also may return an output; in this case we want to find all the modes of this list.<br><br>
+Finally, the <code>:</code> at the end of the line and tne indenting in the rest of the code tells us that the code below is part of our function.
 
-  # move through unsorted part of list
+This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
 
-  for i in range(0, len(numbers)):
+This is a comment indicating we are moving through the unsorted part of the list. The outside loop will keep track of what we have sorted so far.
 
+We are using a <b>for loop</b> to get the value <b>and the index</b>, so the syntax is slightly different. We call the <code>enumerate()</code> function, passing in our <code>numbers</code> list to have it return the value and the index together.<br><br>
 
+This is a comment indicating that we will start searching for the minimum now.
 
-    # find where the minimum is
+We start the <code>min_index</code> at the start of the unsorted part of the list.<br><br>
+In the beginning the whole list is unsorted. However, as more minimums are found and the start index advances,
+we will only search over whatever is unsorted.
 
-    min_index = i
-
-    for j in range(i + 1, len(numbers)):
-
-
-
-      # continue to update the minimum index
-
-      if numbers[j] < numbers[min_index]:
-
-        min_index = j
+We only want to look through the rest of the list, including the start index where the minimum will go.
+We will compare the value at the minimum index to all the numbers in the list and store where the minimum is.
 
 
 
-    # bring minimum value to the front by swapping
+Here is another <b>for loop</b> using the <code>enumerate()</code> function, passing in our <code>numbers</code> list to have it return the value and the index together.<br><br>
+This loop will look for the minimum value in the unsorted part of the list.
 
-    temp_number = numbers[min_index]
+This is a comment indicating that we will compare every value in our <code>unsorted_list</code> to the value at <code>min_index</code>.
 
-    numbers[min_index] = numbers[i]
+This <b>if statement</b> makes the comparison between the value and the minimum index.
 
-    numbers[i] = temp_number
+We update the minimum index if we find a smaller value than what is currently at the minimum index.<br><br>
+The unsorted list has different indexes so we must adjust what we store as the minimum index of the larger total list that we want sorted.
 
-    
+
+
+You would think that removing the minimum value and putting it in the front would make sense. This makes sense for a human but is very inefficient for a computer. Because lists are stored in one block of space on your computer, adding to the front of a list makes your computer have to shift
+everything else in your list over by one index, which is inefficient.<br><br>
+Instead, in order to move the minimum to the front, we will swap the value at <code>min_index</code> with the value at <code>start_index</code>.
+
+This is the first line of the swap, where we move the minimum to the front by swapping 
+the value at <code>min_index</code> with the value at <code>start_index</code>.<br><br>
+Hover over or click on the comment above to find out why we swap instead of moving the minimum to the front.
+
+This is the first line of the swap, where we move the minimum to the front by swapping 
+the value at <code>min_index</code> with the value at <code>start_index</code>.<br><br>
+Hover over or click on the comment above to find out why we swap instead of moving the minimum to the front.
+
+
   
-  return numbers
+Finally, we return the fully sorted list, <code>numbers</code>.
