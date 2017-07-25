@@ -18,7 +18,7 @@ const Footer = ({ routes }) => (
     ))}
     </ul></div>
     <div style={{marginBottom: "10px"}} className="has-text-centered">
-      <small>Made at <i className="fa fa-envira" style={{marginTop: "8px", fontSize: "10px"}}></i>MongoDB</small>
+      <small>Made by Nathan Dalal at <i className="fa fa-envira" style={{marginTop: "8px", fontSize: "10px"}}></i>MongoDB</small>
     </div>
   </footer>
 )

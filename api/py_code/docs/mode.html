@@ -1,35 +1,52 @@
-def get_mode(numbers):
+The <code>def</code> keyword defines a function. We see that we have named our function <code>get_median</code>.<br><br>
+A function expects an input (here we expect a list that we call <code>numbers</code>).
+A function also may return an output; in this case we want to find the mean of this list.<br><br>
+Finally, the <code>:</code> at the end of the line and tne indenting in the rest of the code tells us that the code below is part of our function.
 
-  # initialize dictionary
+This is a <strong>docstring</strong>, a standard practice in Python to say what your function does. It helps others read your code.
 
-  nums_counts = {}
+This is a comment indicating we are making a dictionary. A dictionary is a structure that <b>maps a key to a value</b>.
+Much like a normal dictionary, think of a key as a term and the value as its definition.<br><br>
+This structure is sometimes called a <b>map</b> as well.
+
+We <b>initialize a dictionary</b> with the curly braces <code>{}</code>, as shown in the code.
+We access elements in the dictionary by using brackets <code>[]</code>, just like arrays.<br><br>
+We want this dictionary to map <b>numbers in the list</b> to <b>how many times they appear</b>.
 
 
 
-  # count occurences
+Now we are moving on to counting how many times each number appears, as indicated by this comment.
 
-  for number in numbers:
+We make a variable called <code>number</code> that stores each element of our <code>numbers</code> list, one by one.<br><br>
+This construction is called a <strong>for loop</strong>. The use of the keyword <code>for</code> allows us to walk through our list, getting each <code>number</code> one by one until we have gone through every <code>number in numbers</code>.<br><br>
+The <code>:</code> and indenting is used again to show that the next four lines are part of our <strong>for loop</strong>.
 
-    if number in nums_counts:
+This <b>if</b> statement checks if we have already inserted the number as a key in our dictionary.<br><br>
+Python will give us an error if we try to access an element that is not in the dictionary.
 
-      nums_counts[number] += 1
+In this case, this number was already in the dictionary, so we can simply update its value to show that <b>we have found the number one more time</b>.
 
-    else:
+This is the <b>else</b> case, indicating that the dictionary does not have this key. The next line handles this case.
 
-      nums_counts[number] = 1
+We are seeing the key for the first time, which means that so far, we have seen it once. We assign its value to be one,
+because so far we have seen it once.
 
 
   
-  # find number with most occurences
+This comment tells us we will now use our dictionary to find 
 
-  max_number = numbers[0]
+  modes, max_count = [], 0
 
-  for number in nums_counts.keys():
+  for number, count in nums_counts.items():
 
-    if nums_counts[number] > nums_counts[max_number]:
+    if count > max_count:
 
-      max_number = number
+      modes, max_count = [number], count
 
-      
+    elif count == max_count:
 
-  return max_number
+      modes = modes + [number]
+
+
+
+  return modes
