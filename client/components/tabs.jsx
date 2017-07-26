@@ -14,7 +14,7 @@ const Tabs = ({ rootPath, tabs, activeTab }) => {
     })
 
     let renderFinishedTab = (tab) => (
-      <Link to={`${rootPath}${tab.path ? `/${tab.path}` : ""}`}>
+      <Link to={rootPath ? `${rootPath}${tab.path ? `/${tab.path}` : ""}` : ""}>
         <span className="icon is-small">
           <i className="fa fa-check" style={{color: "#23d160"}}/>
         </span>
@@ -23,7 +23,7 @@ const Tabs = ({ rootPath, tabs, activeTab }) => {
     )
 
     let renderNormalTab = (tab) => (
-      <Link to={`${rootPath}${tab.path ? `/${tab.path}` : ""}`}>
+      <Link to={rootPath ? `${rootPath}${tab.path ? `/${tab.path}` : ""}` : ""}>
         <span className="icon is-small">
           <i className={`fa fa-${tab.icon}`} />
         </span>
