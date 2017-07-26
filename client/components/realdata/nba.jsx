@@ -145,7 +145,9 @@ export default class NBA extends React.Component {
             style={{maxWidth: "260px", margin: "20px auto"}}>
             <div className="card-image">
               <figure className="image is-4by3">
-                <img src={player.officialImageSrc ? player.officialImageSrc : "/images/default_face.png"} alt="No Picture Available" />
+                <img src={player.externalMapping && player.externalMapping.ID ? 
+                  `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.externalMapping.ID}.png` :
+                  "/images/default_face.png"} alt="No Picture Available" />
               </figure>
             </div>
             <div className="card-content">
