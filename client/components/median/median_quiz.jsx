@@ -45,18 +45,18 @@ export default class MedianQuiz extends React.Component {
         <h6>You can always <Link to="/median">go back to the walkthrough</Link> if you need help.</h6>
         {this.state.questions.map((q, index) => (
           <div className="box container" style={{maxWidth: "800px"}} key={index} >
-            <ListRenderer list={q.list} />
             <h6>
-              <span className="icon is-small"><i className="fa fa-bell-o" aria-hidden="true"/></span> Remember
-              to sort the 
-              list. <span className="icon is-small"><i className="fa fa-bell-o" aria-hidden="true"/></span>
+              <span className="icon is-small"><i className="fa fa-bell-o" aria-hidden="true"/></span> Sort
+              the list before you 
+              answer. <span className="icon is-small"><i className="fa fa-bell-o" aria-hidden="true"/></span>
             </h6>
+            <ListRenderer list={q.list} />
             {this.renderInput({
-              label: "Maximum Element", icon: "arrow-up", 
+              label: "Largest Number", icon: "arrow-up", 
               value: q.max, key: "max", questionIndex: index
             })}
             {this.renderInput({
-              label: "2nd Smallest Element", icon: "level-down",
+              label: "2nd Smallest Number", icon: "level-down",
               value: q.secondMin, key: "secondMin", questionIndex: index
             })}
             {this.renderInput({
@@ -87,7 +87,9 @@ export default class MedianQuiz extends React.Component {
       <div className="field">
         <label className="label is-medium">{info.label}</label>
         <p className="control has-icons-left has-icons-right">
-          <input className="input is-medium" type="number" step="0.001" value={info.value} disabled={this.isCorrectInput(info)}
+          <input className={`input is-medium 
+            ${this.isCorrectInput(info) || info.value == 0 || !(info.value) ? "" : "is-danger"}`} 
+            type="number" step="0.001" value={info.value} disabled={this.isCorrectInput(info)}
             onChange={((event) => {
               let stateChange = Object.assign({}, this.state)
               stateChange["questions"][info.questionIndex][info.key] = parseFloat(event.target.value)

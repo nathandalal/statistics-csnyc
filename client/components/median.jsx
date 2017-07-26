@@ -38,7 +38,7 @@ export default class Median extends React.Component {
     return (
       <div>
         <h1 className="title">Median</h1>
-        <h2 className="subtitle">The middle element of a sorted list.</h2>
+        <h2 className="subtitle">The middle number of a sorted list.</h2>
 
         <Tabs rootPath={"/median"} tabs={this.state.tabs} activeTab={this.props.match.params.tab} />
 
@@ -60,11 +60,11 @@ export default class Median extends React.Component {
         <h3>What is the median?</h3>
         <h6>
           The median is another way to measure typical performance.
-          The median sorts all the elements and takes the middle element as a typical element of the group.
+          The median sorts all the elements and takes the middle number as a typical number of the group.
         </h6>
         <h3>Why can't we just use the mean?</h3>
         <h6>
-          The median is useful when the mean doesn't accurately describe the typical element in the group, <b>when one or a few elements make the mean inaccurate</b>. 
+          The median is useful when the mean doesn't accurately describe the typical number in the group, <b>when one or a few numbers make the mean inaccurate</b>. 
           Such elements that are far from the mean are called <b>outliers</b>.
           For example, here are some examples where outliers make calculating the mean not very effective.
         </h6>

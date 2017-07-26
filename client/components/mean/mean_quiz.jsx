@@ -82,7 +82,9 @@ export default class MeanQuiz extends React.Component {
       <div className="field">
         <label className="label is-medium">{info.label}</label>
         <p className="control has-icons-left has-icons-right">
-          <input className="input is-medium" type="number" step="0.01" value={info.value} disabled={this.isCorrectInput(info)}
+          <input className={`input is-medium 
+            ${this.isCorrectInput(info) || info.value == 0 || !(info.value) ? "" : "is-danger"}`}
+            type="number" step="0.01" value={info.value} disabled={this.isCorrectInput(info)}
             onChange={((event) => {
               let stateChange = Object.assign({}, this.state)
               stateChange["questions"][info.questionIndex][info.key] = parseFloat(event.target.value)

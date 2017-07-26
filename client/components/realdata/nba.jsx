@@ -186,7 +186,8 @@ export default class NBA extends React.Component {
         <div className="field">
           <label className="label">{info.label}</label>
           <p className="control has-icons-left has-icons-right">
-            <input className="input" type={info.key == "modes" ? "text" : "number"} 
+            <input className={`input ${this.isCorrectInput(info) || info.value == 0 || !(info.value) ? "" : "is-danger"}`}
+            type={info.key == "modes" ? "text" : "number"} 
               step="0.01" value={info.value} disabled={this.isCorrectInput(info)}
               onChange={((event) => {
                 let stateChange = {questions: []}

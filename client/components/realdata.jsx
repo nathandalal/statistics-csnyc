@@ -47,6 +47,20 @@ export default class RealData extends React.Component {
           tabName == "nba" ? <NBA /> : (
             <div className="content">
 
+
+              <h3>Trying out an API</h3>
+              <p>
+                First, check out this application that uses an API to show the current position of the International Space Station.
+              </p>
+              <a className="button is-info" href="http://open-notify.org/Open-Notify-API/">Show me the ISS!</a>
+              <p style={{paddingTop: "15px"}}>
+                Now we will see how this website receives this data.
+                Try clicking on the link to open an example of what data they use in your browser.
+              </p>
+              <pre>
+                <a target="_blank" href="http://api.open-notify.org/iss-now.json">http://api.open-notify.org/iss-now.json</a>
+              </pre>
+
               <h3>What is an API?</h3>
               <p>
                 An application programming interface, or an API, is a fancy way to talk about how computers communicate.
@@ -58,19 +72,14 @@ export default class RealData extends React.Component {
                 All the techniques of mean, median, and mode, as well as other ways to analyze numbers that you will learn,
                 will come together when you practice your skills on real data.
               </p>
-              <h3>Trying out an API</h3>
-              <p>
-                We will learn JavaScript Object Notation, or JSON, which is a way in which computers structure data.
-                There are many sources of data that provide an API for us to read their data.
-                Try clicking on the link to open an example of JSON data in your browser.
-              </p>
-              <h6>Show the current position of the ISS space station by clicking the link below.</h6>
-              <pre>
-                <a target="_blank" href="http://api.open-notify.org/iss-now.json">http://api.open-notify.org/iss-now.json</a>
-              </pre>
 
               <h3>The JSON Object Format</h3>
-              <h6>Here's a sample response from clicking the link.</h6>
+              <h6>
+                We will learn JavaScript Object Notation, or JSON, which is a way in which
+                computers structure data. There are many sources of data that provide an API
+                for us to read their data.
+              </h6>
+              <h6>Here's a sample response from clicking that link above.</h6>
               <pre><code className="hljs json" dangerouslySetInnerHTML={{__html: sampleAPICode}}>
               </code></pre>
 

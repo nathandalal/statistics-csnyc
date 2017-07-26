@@ -78,7 +78,9 @@ export default class ModeQuiz extends React.Component {
       <div className="field">
         <label className="label is-medium">{info.label}</label>
         <p className="control has-icons-left has-icons-right">
-          <input className="input is-medium" type="text" value={info.value} disabled={this.isCorrectInput(info)}
+          <input className={`input is-medium 
+            ${this.isCorrectInput(info) || info.value == 0 || !(info.value) ? "" : "is-danger"}`}
+            type="text" value={info.value} disabled={this.isCorrectInput(info)}
             onChange={((event) => {
               let stateChange = Object.assign({}, this.state)
               stateChange["questions"][info.questionIndex].modesString = event.target.value
