@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Slider from 'react-rangeslider'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
@@ -34,7 +33,7 @@ export default class SummationVisual extends React.Component {
 
   changeDelay(seconds) {
     if(this.state.currentIndex < 0 || this.state.currentIndex >= this.props.list.length)
-      this.setState({delayms: val * 1000})
+      this.setState({delayms: seconds * 1000})
   }
 
   setAnimationControls(enterPress = false) {
@@ -45,7 +44,7 @@ export default class SummationVisual extends React.Component {
       let newList = this.state.inputList.split(',')
       if(newList.length >= 3) {
         try {this.props.changeList(newList.map(str => parseInt(str.trim(), 10)))}
-        catch (e) {console.log(e)}
+        catch (e) {throw e}
       }
       else if (!enterPress) this.props.changeList()
       this.setState({inputList: ""})

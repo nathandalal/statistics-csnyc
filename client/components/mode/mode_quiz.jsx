@@ -58,7 +58,7 @@ export default class ModeQuiz extends React.Component {
         ))}
         {this.hasCompletedQuiz() ? (
           <div className="content container animated bounceInDown" style={{marginTop: "20px"}}>
-            <h5>You're an expert on the mode. Well done!</h5>
+            <h5>You{"'"}re an expert on the mode. Well done!</h5>
             <div className="block">
               <button className="button is-primary is-medium" 
                 onClick={(() => this.setState({questions: this.state.questions.concat(this.getTwoQuestions())})).bind(this)}>
@@ -88,7 +88,7 @@ export default class ModeQuiz extends React.Component {
                 let newModesList = event.target.value.split(",").map(str => parseInt(str.trim(), 10))
                 stateChange["questions"][info.questionIndex].modes = newModesList
                 this.setState(stateChange)
-              } catch (e) { console.log(e) 
+              } catch (e) { throw(e)
               } finally {
                 this.setState(stateChange)
               }

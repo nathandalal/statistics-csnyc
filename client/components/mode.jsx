@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import ModeVisual from './mode/mode_visual.jsx'
 import ModeQuiz from './mode/mode_quiz.jsx'
 
-import ListRenderer from './list_renderer.jsx'
 import { generateList } from '../utils/generate_list'
 
 export default class Mode extends React.Component {
@@ -63,9 +62,9 @@ export default class Mode extends React.Component {
           The mode looks at the most common element in the list.
         </h6>
         <h6>
-          When the mode is quite far away from the mean or median, it's evidence that the mean, median, and mode may not be great indicators of a typical list element.
+          When the mode is quite far away from the mean or median, it{"'"}s evidence that the mean, median, and mode may not be great indicators of a typical list element.
         </h6>
-        <h3>Why can't we just use the mean or median?</h3>
+        <h3>Why can{"'"}t we just use the mean or median?</h3>
         <h6>
           The mode is useful when, instead of typical performance over all elements, we want to look at <b>an event or an element that occurs or appears most often</b>.
         </h6>
@@ -124,7 +123,7 @@ export default class Mode extends React.Component {
     return (
       <div className="content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
         <hr/>
-        <h5>Let's test what you've learned.</h5>
+        <h5>Let{"'"}s test what you{"'"}ve learned.</h5>
         <Link to='/mode/quiz' className="button is-primary is-large">Quiz The Mode!</Link>
       </div>
     )

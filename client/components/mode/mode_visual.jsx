@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Slider from 'react-rangeslider'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
@@ -40,7 +39,7 @@ export default class ModeVisual extends React.Component {
 
   changeDelay(seconds) {
     if(this.state.currentIndex < 0 || this.state.currentIndex >= this.props.list.length)
-      this.setState({delayms: val * 1000})
+      this.setState({delayms: seconds * 1000})
   }
 
   setAnimationControls(enterPress = false) {
@@ -51,7 +50,7 @@ export default class ModeVisual extends React.Component {
       let newList = this.state.inputList.split(',')
       if(newList.length >= 3) {
         try {this.props.changeList(newList.map(str => parseInt(str.trim(), 10)))}
-        catch (e) {console.log(e)}
+        catch (e) {throw e}
       }
       else if (!enterPress) this.props.changeList()
       this.setState({inputList: ""})
@@ -124,10 +123,10 @@ export default class ModeVisual extends React.Component {
       }
     })
 
-    this.updateActiveKey(this.KEY_SENTINEL, ms = ms + delayms, true)
+    this.updateActiveKey(this.KEY_SENTINEL, ms = ms + delayms)
   }
 
-  updateCurrentIndex(index, delayms, finalUpdate = false) {
+  updateCurrentIndex(index, delayms) {
     this.timeouts.push(setTimeout((() => {
       this.setState({currentIndex: index})
       this.props.updateHighlightStep(index == this.props.list.length ? 8 : 1)

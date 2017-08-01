@@ -1,5 +1,4 @@
 import React from 'react';
-import Code from './code.jsx'
 import Tabs from './tabs.jsx'
 import { Link } from 'react-router-dom'
 
@@ -58,13 +57,13 @@ export default class RealData extends React.Component {
                 Try clicking on the link to open an example of what data they use in your browser.
               </p>
               <pre>
-                <a target="_blank" href="http://api.open-notify.org/iss-now.json">http://api.open-notify.org/iss-now.json</a>
+                <a target="_blank" rel="noopener noreferrer" href="http://api.open-notify.org/iss-now.json">http://api.open-notify.org/iss-now.json</a>
               </pre>
 
               <h3>What is an API?</h3>
               <p>
                 An application programming interface, or an API, is a fancy way to talk about how computers communicate.
-                Computers send and receive information in structured ways, and we'll learn in this unit how that is done.
+                Computers send and receive information in structured ways, and we{"'"}ll learn in this unit how that is done.
               </p>
               <h3>Why do we care?</h3>
               <p>
@@ -79,20 +78,19 @@ export default class RealData extends React.Component {
                 computers structure data. There are many sources of data that provide an API
                 for us to read their data.
               </h6>
-              <h6>Here's a sample response from clicking that link above.</h6>
-              <pre><code className="hljs json" dangerouslySetInnerHTML={{__html: sampleAPICode}}>
-              </code></pre>
+              <h6>Here{"'"}s a sample response from clicking that link above.</h6>
+              <pre><code className="hljs json" dangerouslySetInnerHTML={{__html: sampleAPICode}}/></pre>
 
               <p>
-                Let's say you had a variable called <code>data</code> that stored this information.
+                Let{"'"}s say you had a variable called <code>data</code> that stored this information.
                 With JSON, if you wanted to get the <code>timestamp</code> part of the <code>data</code>,
                 you would simply write <code>data.timestamp</code>. Timestamps are actually stored as numbers like shown above 
-                (find out what date and time that number is from <a target="_blank" href="https://www.epochconverter.com/">using this link</a>).
+                (find out what date and time that number is from <a target="_blank" rel="noopener noreferrer" href="https://www.epochconverter.com/">using this link</a>).
               </p>
               <p>
                 This continues for the latitude, as you would access
                 that by writing <code>data.iss_position.latitude</code>.
-                You'll see an example of showing a map based on the location of a place on the next page.
+                You{"'"}ll see an example of showing a map based on the location of a place on the next page.
               </p>
               <p>
                 If you want to know more about JSON, you can <a href="http://www.json.org/">click on this link</a>.
@@ -100,8 +98,8 @@ export default class RealData extends React.Component {
 
               <h3>Playing With Real Data!</h3>
               <p>
-                Now that you have a sense for how the JSON object works and how computers communicate, let's use a few APIs
-                to get real data. We'll use our new mean, median, and mode skills for analysis.
+                Now that you have a sense for how the JSON object works and how computers communicate, let{"'"}s use a few APIs
+                to get real data. We{"'"}ll use our new mean, median, and mode skills for analysis.
               </p>
               <div className="block">
                 <Link to="/realdata/weather" className="button is-primary is-medium">Weather Activity</Link>

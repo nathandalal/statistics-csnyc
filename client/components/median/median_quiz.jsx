@@ -67,7 +67,7 @@ export default class MedianQuiz extends React.Component {
         ))}
         {this.hasCompletedQuiz() ? (
           <div className="content container animated bounceInDown" style={{marginTop: "20px"}}>
-            <h5>You're an expert on the median. Well done!</h5>
+            <h5>You{"'"}re an expert on the median. Well done!</h5>
             <div className="block">
               <button className="button is-primary is-medium" 
                 onClick={(() => this.setState({questions: this.state.questions.concat(this.getTwoQuestions())})).bind(this)}>

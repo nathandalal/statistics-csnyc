@@ -62,9 +62,9 @@ export default class Median extends React.Component {
           The median is another way to measure typical performance.
           The median sorts all the elements and takes the middle number as a typical number of the group.
         </h6>
-        <h3>Why can't we just use the mean?</h3>
+        <h3>Why can{"'"}t we just use the mean?</h3>
         <h6>
-          The median is useful when the mean doesn't accurately describe the typical number in the group, <b>when one or a few numbers make the mean inaccurate</b>. 
+          The median is useful when the mean doesn{"'"}t accurately describe the typical number in the group, <b>when one or a few numbers make the mean inaccurate</b>. 
           Such elements that are far from the mean are called <b>outliers</b>.
           For example, here are some examples where outliers make calculating the mean not very effective.
         </h6>
@@ -112,7 +112,7 @@ export default class Median extends React.Component {
             <h6>
               This animation shows a sorting method that finds a minimum value and 
               switches elements in the list to bring that number to the front of the list.
-              Since we know that's the <strong>lowest element</strong>, 
+              Since we know that{"'"}s the <strong>lowest element</strong>, 
               we can repeat the process on the rest of the list.
             </h6>
             <SelectionSortVisual list={this.state.list} 
@@ -169,7 +169,7 @@ export default class Median extends React.Component {
     return (
       <div className="content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
         <hr/>
-        <h5>Let's test what you've learned.</h5>
+        <h5>Let{"'"}s test what you{"'"}ve learned.</h5>
         <Link to='/median/quiz' className="button is-primary is-large">Quiz The Median!</Link>
       </div>
     )

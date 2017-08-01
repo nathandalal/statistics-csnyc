@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import Code from './code.jsx'
 import Tabs from './tabs.jsx'
 
 export default class Home extends React.Component {
@@ -15,7 +14,6 @@ export default class Home extends React.Component {
         {name: "Getting Started",   icon: "play-circle"},
       ]
     }
-    console.log(this.props)
   }
 
   componentWillMount() {

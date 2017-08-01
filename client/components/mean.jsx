@@ -62,12 +62,7 @@ export default class Mean extends React.Component {
         <h3>What is a mean?</h3>
         <p>
           The mean is an average of every element in a list.
-          It's a good way to see what number is closest to every element.
-        </p>
-        <h3>Why do we care?</h3>
-        <p>
-          The mean is an average of every element in a list.
-          It's a good way to see what number is closest to every element.
+          It{"'"}s a good way to see what number is closest to every element.
         </p>
         <h3>Defining the Mean</h3>
         <p>
@@ -146,7 +141,7 @@ export default class Mean extends React.Component {
               <h6>
                 Mean of Numbers<code className="pull-right">{sum / len}</code>
               </h6>
-              <small>The mean is a decimal number. Don't forget the remainder!</small>
+              <small>The mean is a decimal number. Don{"'"}t forget the remainder!</small>
             </div>
 
           </div>
@@ -163,7 +158,7 @@ export default class Mean extends React.Component {
     return (
       <div className="content animated fadeIn" style={{animationDuration: "3s", marginTop: "20px"}}>
         <hr/>
-        <h5>Let's test what you've learned.</h5>
+        <h5>Let{"'"}s test what you{"'"}ve learned.</h5>
         <Link to={`${this.rootPath}/quiz`} className="button is-primary is-large">Test Your Mean Skills!</Link>
       </div>
     )

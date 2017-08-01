@@ -76,7 +76,7 @@ export default class NBA extends React.Component {
       Object.values(rosters).forEach(roster => {
         let ages = roster.players.map(player => parseInt(player.Age, 10))
         let weights = roster.players.map(player => parseInt(player.Weight, 10))
-        let heights = roster.players.map(player => (parseInt(player.Height[0], 10) * 12) + parseInt(player.Height.replace('\"').substr(2), 10))
+        let heights = roster.players.map(player => (parseInt(player.Height[0], 10) * 12) + parseInt(player.Height.replace('"').substr(2), 10))
 
         roster["typicalAge"] = {mean: get_mean(ages), median: get_median(ages), modes: get_modes(ages)}
         roster["typicalWeight"] = {mean: get_mean(weights), median: get_median(weights), modes: get_modes(weights)}
@@ -89,7 +89,7 @@ export default class NBA extends React.Component {
       })
 
     })
-    .catch(e => console.error(e))
+    .catch(e => e)
   }
 
   componentWillUnmount() {
@@ -128,7 +128,7 @@ export default class NBA extends React.Component {
         </div>
 
         <h6 className="has-text-centered" style={{paddingBottom: "20px"}}>
-          We've given you the mean, median, and mode heights for <b>
+          We{"'"}ve given you the mean, median, and mode heights for <b>
           {this.state.team == "BRO" ? "BKN" : (this.state.team == "OKL" ? "OKC" : this.state.team)}</b>. Now 
           go find the typical age and weight!
         </h6>
@@ -168,9 +168,9 @@ export default class NBA extends React.Component {
 
   renderCard(data, title) {
     if (title == "Height") {
-      data["mean"] = `${(data["mean"] / 12).toFixed(2)}\'`
-      data["median"] = `${parseInt(data["median"] / 12, 10)}\'${parseInt(data["median"] % 12, 10)}\"`
-      data["modes"] = data["modes"].map(datum => `${parseInt(datum / 12, 10)}\'${parseInt(datum % 12, 10)}\"`)
+      data["mean"] = `${(data["mean"] / 12).toFixed(2)}'`
+      data["median"] = `${parseInt(data["median"] / 12, 10)}'${parseInt(data["median"] % 12, 10)}"`
+      data["modes"] = data["modes"].map(datum => `${parseInt(datum / 12, 10)}'${parseInt(datum % 12, 10)}"`)
 
       return (
         <div className="box content container column is-4" style={{maxWidth: "260px", margin: "20px auto"}}>
@@ -201,7 +201,7 @@ export default class NBA extends React.Component {
                     let newModesList = event.target.value.split(",").map(str => parseInt(str.trim(), 10))
                     stateChange["questions"][info.questionIndex].modes = newModesList
                     this.setState(stateChange)
-                  } catch (e) { console.log(e) 
+                  } catch (e) { throw e
                   } finally {
                     this.setState(stateChange)
                   }
@@ -227,7 +227,7 @@ export default class NBA extends React.Component {
           <h4>{title}</h4>
           <h6><small>
             If you need help on the <Link to="/mean">mean</Link>, <Link to="/mean">median</Link>,
-            or <Link to="/mean">mode</Link>, we're here for you.
+            or <Link to="/mean">mode</Link>, we{"'"}re here for you.
           </small></h6>
           {renderInput({
             label: "Mean", icon: "list", 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import cookie from 'react-cookies'
 
 import Home from './components/home.jsx'
@@ -41,12 +41,10 @@ class Index extends React.Component {
       { path: "/realdata/:tab",   component: RealData}
     ])
 
-    let createElement = (Component, props) => <Component {...props} />
-
     return (
       <Router><div>
         <div style={{display: "flex", minHeight: "100vh", flexDirection: "column"}}>
-          <div style={{flex: 1, padding: "5%"}}>
+          <div style={{flex: 1, padding: "5%"}}><Switch>
             {this.renderWarnIE()}
             {all_routes.map(route => <Route 
               exact path={route.path} 
@@ -54,7 +52,8 @@ class Index extends React.Component {
               showCode={this.state.showCode}
               component={(props) => <route.component setShowCode={this.setShowCode} showCode={this.state.showCode} {...props} />} 
               key={route.path} />)}
-          </div>
+            <Redirect to="/" />
+          </Switch></div>
           <Footer routes={main_routes} />
         </div>
       </div></Router>
@@ -67,7 +66,7 @@ class Index extends React.Component {
       <div className="notification is-warning">
         You are using version Internet Explorer 8 or lower. Some animations in this exercise may not work.<br />
         Please <strong>switch browsers</strong> or update your Internet Explorer version. 
-        Try <a target="_blank" href="http://google.com/chrome">Google Chrome</a>.
+        Try <a target="_blank" rel="noopener noreferrer" href="http://google.com/chrome">Google Chrome</a>.
       </div> : ""
     )
   }

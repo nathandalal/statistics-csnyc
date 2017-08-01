@@ -1,6 +1,23 @@
 {
   "extends": "airbnb",
-  "rules" : {
-    "semi" : ["off", "always"]
-  }
+  "rules": {
+    "semi" : ["off", "always"],
+    "react/prop-types": 0
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6":     true,
+    "browser": true,
+    "node":    true
+  },   
+  "extends": [
+    "eslint:recommended", 
+    "plugin:react/recommended"
+  ]
 }

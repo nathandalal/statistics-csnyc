@@ -1,5 +1,4 @@
 import React from 'react'
-import Select from 'react-select'
 import axios from 'axios'
 import moment from 'moment'
 import LeafletMap from './leaflet_map.jsx'
@@ -20,7 +19,7 @@ export default class Weather extends React.Component {
     this.setState({data: null})
     axios.get(`/api/weather/${this.state.city}`)
     .then(({data}) => this.setState({data: data}))
-    .catch(e => console.error(e))
+    .catch(e => e)
   }
 
   render() {

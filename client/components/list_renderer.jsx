@@ -1,5 +1,4 @@
 import React from 'react'
-import bowser from 'bowser'
 
 const NumberCircle = ({ n, active, size, type }) => {
   let getAnimation = () => {

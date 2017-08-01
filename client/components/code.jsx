@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import cookie from 'react-cookies'
 
 export default class Code extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ export default class Code extends React.Component {
 
   getCode() {
     axios.get(`/api/pylessonfiles/${this.props.fileName}`).then(({ data }) => {
-      let code = hljs.highlight('python', data.src_str).value.split('\n')
+      let code = window.hljs.highlight('python', data.src_str).value.split('\n')
       this.setState({code_lines: code.slice(0, -1), doc_lines: data.doc, code_raw: data.src})
     })
   }

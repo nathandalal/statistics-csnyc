@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Slider from 'react-rangeslider'
 import CopyToClipboard from 'react-copy-to-clipboard'
 
@@ -50,7 +49,7 @@ export default class SelectionSortVisual extends React.Component {
 
   changeDelay(seconds) {
     if(this.state.currentOuterIndex < 0 || this.state.currentOuterIndex >= this.props.list.length)
-      this.setState({delayms: val * 1000})
+      this.setState({delayms: seconds * 1000})
   }
 
   setAnimationControls(enterPress = false) {
@@ -61,7 +60,7 @@ export default class SelectionSortVisual extends React.Component {
       let newList = this.state.inputList.split(',')
       if(newList.length >= 3) {
         try {this.props.changeList(newList.map(str => parseInt(str.trim(), 10)))}
-        catch (e) {console.log(e)}
+        catch (e) {throw e}
       }
       else if (!enterPress) this.props.changeList()
       this.setState({inputList: ""})
