@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 export default class Code extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showCode: cookie.load("showCode") == "true" || false, screenWidth: window.innerWidth}
+    this.state = {screenWidth: window.innerWidth}
     this.getCode()
   }
 
@@ -17,11 +17,10 @@ export default class Code extends React.Component {
   }
 
   render() {
-    return this.state && this.state.showCode ? this.renderCode() : this.renderHiddenCode()
+    return this.props.showCode ? this.renderCode() : this.renderHiddenCode()
   }
 
   updateDimensions() {
-    console.log(window.innerWidth)
     this.setState({screenWidth: window.innerWidth})
   }
   componentDidMount() {
@@ -64,7 +63,7 @@ export default class Code extends React.Component {
             </span>
           ))}
         </div> 
-        <a className="link is-pulled-right" style={{marginLeft: "10%"}} onClick={this.showCodeAction.bind(this, false)}>Hide Code</a>
+        <a className="link is-pulled-right" style={{marginLeft: "10%"}} onClick={(() => this.props.setShowCode(false)).bind(this)}>Hide Code</a>
 
         <div style={{clear: "all", padding: "1em", height: "220px"}} dangerouslySetInnerHTML={{__html: 
           this.hasValidHighlightIndex() ? this.state.doc_lines[this.props.highlightIndex] :
@@ -77,13 +76,8 @@ export default class Code extends React.Component {
   renderHiddenCode() {
     return <div className="content">
       <h5>Walk through the Python code that executes <code>{this.props.fileName}</code> step-by-step.</h5>
-      <a className="button is-primary" onClick={this.showCodeAction.bind(this, true)}>Show Code</a>
+      <a className="button is-primary" onClick={(() => this.props.setShowCode(true)).bind(this)}>Show Code</a>
     </div>
-  }
-
-  showCodeAction(flag) {
-    cookie.save("showCode", flag, {path: "/"})
-    this.setState({showCode: flag})
   }
 
   focusOnCodeLine(index, shouldSet = true) {

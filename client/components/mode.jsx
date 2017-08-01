@@ -113,7 +113,8 @@ export default class Mode extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"mode.py"} highlightIndex={this.state.highlightIndex} />
+          <Code fileName={"mode.py"} highlightIndex={this.state.highlightIndex}
+            showCode={this.props.showCode} setShowCode={this.props.setShowCode} />
         </div>
       </div>
     )

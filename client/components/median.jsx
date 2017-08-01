@@ -30,7 +30,7 @@ export default class Median extends React.Component {
   }
 
   updateHighlightStepSelectionSort(step) {
-    this.setState({ssHighlightIndex: step + 2})
+    this.setState({highlightIndex: step + 2})
   }
 
   render() {
@@ -121,7 +121,8 @@ export default class Median extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"selection_sort.py"} highlightIndex={this.state.ssHighlightIndex} />
+          <Code fileName={"selection_sort.py"} highlightIndex={this.state.highlightIndex}
+            showCode={this.props.showCode} setShowCode={this.props.setShowCode} />
         </div>
       </div>
     )
@@ -157,7 +158,8 @@ export default class Median extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"median.py"} />
+          <Code fileName={"median.py"} 
+            showCode={this.props.showCode} setShowCode={this.props.setShowCode} />
         </div>
       </div>
     )

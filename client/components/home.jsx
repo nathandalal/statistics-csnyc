@@ -15,6 +15,7 @@ export default class Home extends React.Component {
         {name: "Getting Started",   icon: "play-circle"},
       ]
     }
+    console.log(this.props)
   }
 
   componentWillMount() {

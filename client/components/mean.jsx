@@ -107,7 +107,8 @@ export default class Mean extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"mean.py"} highlightIndex={this.state.highlightIndex} />
+          <Code fileName={"mean.py"} highlightIndex={this.state.highlightIndex} 
+            showCode={this.props.showCode} setShowCode={this.props.setShowCode} />
         </div>
       </div>
     )
@@ -151,7 +152,8 @@ export default class Mean extends React.Component {
           </div>
         </div>
         <div className="column is-5-widescreen is-12-desktop">
-          <Code fileName={"mean.py"} highlightIndex={12}/>
+          <Code fileName={"mean.py"} highlightIndex={12}
+            showCode={this.props.showCode} setShowCode={this.props.setShowCode}/>
         </div>
       </div>
     )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import cookie from 'react-cookies'
 
 import Home from './components/home.jsx'
 import Mean from './components/mean.jsx'
@@ -15,6 +16,13 @@ import bowser from 'bowser'
 class Index extends React.Component {
   constructor(props) {
     super(props)
+    this.state = { showCode: cookie.load("showCode") == "true" || false }
+    this.setShowCode = this.setShowCode.bind(this)
+  }
+
+  setShowCode(flag) {
+    cookie.save("showCode", flag, {path: "/"})
+    this.setState({showCode: flag})
   }
 
   render() {
@@ -33,12 +41,19 @@ class Index extends React.Component {
       { path: "/realdata/:tab",   component: RealData}
     ])
 
+    let createElement = (Component, props) => <Component {...props} />
+
     return (
       <Router><div>
         <div style={{display: "flex", minHeight: "100vh", flexDirection: "column"}}>
           <div style={{flex: 1, padding: "5%"}}>
             {this.renderWarnIE()}
-            {all_routes.map(route => <Route exact path={route.path} component={route.component} key={route.path} />)}
+            {all_routes.map(route => <Route 
+              exact path={route.path} 
+              setShowCode={this.setShowCode}
+              showCode={this.state.showCode}
+              component={(props) => <route.component setShowCode={this.setShowCode} showCode={this.state.showCode} {...props} />} 
+              key={route.path} />)}
           </div>
           <Footer routes={main_routes} />
         </div>
