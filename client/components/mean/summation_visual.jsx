@@ -219,6 +219,20 @@ export default class SummationVisual extends React.Component {
                 <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
                 <span>Count of Numbers<code style={{clear: "both"}}className="pull-right">{this.state.currentCount}</code></span>
               </div> 
+              {this.state.currentIndex == this.props.list.length ? (
+                <p className="field" style={{marginTop: "15px"}}>
+                  <a className="button is-primary is-outlined"
+                    onClick={(() => this.setAnimationControls()).bind(this)}>
+                    <span className="icon">
+                      <i className="fa fa-refresh"></i>
+                    </span>
+                    <span>
+                      Restart Animation 
+                      <small> {this.state.inputList.length > 0 ? "(Input List)": "(Random)"}</small>
+                    </span>
+                  </a>
+                </p>
+              ) : ""}
             </div>
           </div>
         </div>

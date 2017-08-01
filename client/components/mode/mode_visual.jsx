@@ -293,6 +293,20 @@ export default class ModeVisual extends React.Component {
                     <hr style={{marginTop: "5px", marginBottom: "5px"}}/>
                     <span>Maximum Occurence<code style={{clear: "both"}}className="pull-right">{this.state.maxCount}</code></span>
                   </div> ) : "Finding modes not started yet."}
+                  {this.state.activeKey == this.KEY_SENTINEL ? (
+                    <p className="field" style={{marginTop: "15px"}}>
+                      <a className="button is-primary is-outlined"
+                        onClick={(() => this.setAnimationControls()).bind(this)}>
+                        <span className="icon">
+                          <i className="fa fa-refresh"></i>
+                        </span>
+                        <span>
+                          Restart Animation 
+                          <small> {this.state.inputList.length > 0 ? "(Input List)": "(Random)"}</small>
+                        </span>
+                      </a>
+                    </p>
+                  ) : ""}
                 </div> 
               </div>
             </div>
