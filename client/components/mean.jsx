@@ -16,7 +16,6 @@ export default class Mean extends React.Component {
   }
 
   componentWillMount() {
-    window.scrollTo(0, 0)
     this.state = {
       tabs: [
         {path: null,            name: "Summing for the Mean",     icon: "list"},

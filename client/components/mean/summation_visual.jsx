@@ -55,10 +55,12 @@ export default class SummationVisual extends React.Component {
   componentWillReceiveProps(nextProps) {
     let l1 = this.props.list
     let l2 = nextProps.list
-    if (!(l1.length==l2.length && l1.every((v,i)=> v === l2[i]))) {
-      this.resetState(this.state.delayms)
-      this.clearTimeouts()
-      this.runAnimation(nextProps.list)
+    if(this.props.showCode == nextProps.showCode) {
+      if (!(l1.length==l2.length && l1.every((v,i)=> v === l2[i]))) {
+        this.resetState(this.state.delayms)
+        this.clearTimeouts()
+        this.runAnimation(nextProps.list)
+      }
     }
   }
 

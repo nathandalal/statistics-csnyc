@@ -14,7 +14,6 @@ export default class Mode extends React.Component {
   }
 
   componentWillMount() {
-    window.scrollTo(0, 0)
     this.state = {
       tabs: [
         {path: null,                name: "Counting for the Mode",        icon: "cubes"},
@@ -23,6 +22,10 @@ export default class Mode extends React.Component {
       list: generateList(8, 1, 10),
       highlightIndex: 3
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.showCode == this.props.showCode
   }
 
   changeList(list = []) {

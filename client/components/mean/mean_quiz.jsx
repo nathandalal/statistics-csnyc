@@ -11,6 +11,7 @@ export default class MeanQuiz extends React.Component {
       questionsNeededToPass: 2,
       questions: this.getTwoQuestions()
     }
+    window.scrollTo(0, 0)
   }
 
   getTwoQuestions() {
@@ -35,7 +36,6 @@ export default class MeanQuiz extends React.Component {
   }
 
   componentWillMount() {
-    window.scrollTo(0, 0)
   }
 
   render() {

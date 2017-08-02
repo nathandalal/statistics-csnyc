@@ -15,7 +15,6 @@ export default class Median extends React.Component {
   }
 
   componentWillMount() {
-    window.scrollTo(0, 0)
     this.state = {
       tabs: [
         {path: null,                name: "Sorting for the Median",       icon: "sort-amount-asc"},
@@ -23,6 +22,10 @@ export default class Median extends React.Component {
       ], 
       list: generateList(8)
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.showCode == this.props.showCode
   }
 
   changeList(list = []) {
