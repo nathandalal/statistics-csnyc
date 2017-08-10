@@ -23,7 +23,8 @@ export default class NBA extends React.Component {
           modes: [],
           modesString: ""
         }
-      ]
+      ],
+      quizMode: true
     }
   }
 
@@ -116,7 +117,7 @@ export default class NBA extends React.Component {
           name="team-name"
           value={this.state.team}
           options={this.getTeams()}
-          onChange={(select => this.setState({team: select.value})).bind(this)}
+          onChange={(select => this.setState({team: select.value, quizMode: true})).bind(this)}
         />
         <h6 style={{marginBottom: "60px"}}><small>
           Rosters loaded from {this.state.rosterLoaded.from(moment())}. <a
@@ -129,8 +130,9 @@ export default class NBA extends React.Component {
 
         <h6 className="has-text-centered" style={{paddingBottom: "20px"}}>
           We{"'"}ve given you the mean, median, and mode heights for <b>
-          {this.state.team == "BRO" ? "BKN" : (this.state.team == "OKL" ? "OKC" : this.state.team)}</b>. Now 
-          go find the typical age and weight!
+          {this.state.team == "BRO" ? "BKN" : (this.state.team == "OKL" ? "OKC" : this.state.team)}</b>.&nbsp;
+          {this.state.quizMode ? "Now go find the typical age and weight!" : 
+          "You decided to not do the work and just see the answers for age and weight, so here they are."}
         </h6>
 
         <div className="columns container content">
@@ -162,12 +164,17 @@ export default class NBA extends React.Component {
           </div>
         ))}
         </div></div>
+        <div className="has-text-centered" style={{fontSize: this.state.quizMode ? "0.4em" : "1em"}}>
+          <a onClick={(() => this.setState({quizMode: !this.state.quizMode})).bind(this)}>
+            {this.state.quizMode ? "Show me the answers." : "Take me back to the quiz mode!"}
+          </a>
+        </div>
       </div>
     )
   }
 
   renderCard(data, title) {
-    if (title == "Height") {
+    if (title == "Height" || !(this.state.quizMode)) {
       data["mean"] = `${(data["mean"] / 12).toFixed(2)}'`
       data["median"] = `${parseInt(data["median"] / 12, 10)}'${parseInt(data["median"] % 12, 10)}"`
       data["modes"] = data["modes"].map(datum => `${parseInt(datum / 12, 10)}'${parseInt(datum % 12, 10)}"`)
