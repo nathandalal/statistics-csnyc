@@ -127,6 +127,7 @@ export default class NBA extends React.Component {
           value={this.state.team}
           options={this.getTeams()}
           onChange={(select => this.setState({team: select.value, quizMode: true})).bind(this)}
+          clearable={false}
         />
         <h6 style={{marginBottom: "60px"}}><small>
           Rosters loaded from {this.state.rosterLoaded.from(moment())}. <a
