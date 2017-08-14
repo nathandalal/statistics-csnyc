@@ -24,7 +24,7 @@ export default class Median extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.showCode == this.props.showCode
   }
 
@@ -79,7 +79,7 @@ export default class Median extends React.Component {
             <i className="fa-li fa fa-dribbble"></i>Measure the typical height of 3 toddlers and Michael Jordan.
           </li>
           <li style={{listStyleType: "none"}}>
-            <i className="fa-li fa fa-tint"></i>You're trying to find how much rain falls over 10 days, but on one day, there was a flood.
+            <i className="fa-li fa fa-tint"></i>You{"'"}re trying to find how much rain falls over 10 days, but on one day, there was a flood.
           </li>
         </ul>
         <h3>Definition of the Median</h3>

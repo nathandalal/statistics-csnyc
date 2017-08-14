@@ -33,18 +33,6 @@ export default class RealData extends React.Component {
 
   render() {
     let tabName = this.props.match.params.tab
-    let sampleAPICode = '{\
-\n  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1500921049</span>,\
-\n  <span class="hljs-attr">"iss_position"</span>: {\
-\n    <span class="hljs-attr">"longitude"</span>: <span class="hljs-string">"-50.7373"</span>,\
-\n    <span class="hljs-attr">"latitude"</span>: <span class="hljs-string">"-39.8239"</span>,\
-\n  },\
-\n  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"success"</span>\
-\n}'
-    console.log(this.state.data)
-
-    console.log(window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)))
-
 
     return (
       <div>

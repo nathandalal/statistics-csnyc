@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "node test/test.js",
+    "lint": "./node_modules/.bin/eslint . --ext .jsx || true",
     "server": "node app.js",
     "server:watch": "nodemon app.js",
     "build": "./node_modules/.bin/webpack -p",

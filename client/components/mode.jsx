@@ -24,7 +24,7 @@ export default class Mode extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.showCode == this.props.showCode
   }
 
