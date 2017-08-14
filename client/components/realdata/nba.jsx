@@ -95,7 +95,7 @@ export default class NBA extends React.Component {
       if(this._isMounted) this.setState({
         rosterLoaded: moment(data.lastUpdatedOn, "YYYY-MM-DD hh:mm:ss A").subtract(10, 'seconds'),
         rosters: rosters,
-        data: data
+        data: window.hljs.highlight('json', JSON.stringify(data, null, 4)).value
       })
 
     })
@@ -174,7 +174,10 @@ export default class NBA extends React.Component {
                 <div className="media-content">
                   <p className="title is-4">{player.FirstName} {player.LastName}</p>
                   <p className="subtitle is-6">{player.Position} #{player.JerseyNumber}</p>
-                  <p className="subtitle is-6">{player.Height}, {player.Weight} lbs.<br/>Age {player.Age}</p>
+                  <p className="subtitle is-6">
+                    {player.Height}, {player.Weight} lbs.<br/>
+                    Age {player.Age}
+                  </p>
                 </div>
               </div>
             </div>
@@ -330,7 +333,7 @@ export default class NBA extends React.Component {
             <p className="modal-card-title">JSON API Response</p>
           </header>
           <section className="modal-card-body">
-            <code className="hljs json" style={{whiteSpace: "pre"}} dangerouslySetInnerHTML={{__html: window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)).value}}/>
+            <code className="hljs json" style={{whiteSpace: "pre"}} dangerouslySetInnerHTML={{__html: this.state.data}}/>
           </section>
           <footer className="modal-card-foot columns is-mobile">
             <h6 className="column is-6">Data from this example is powered by MySportsFeeds.</h6>
