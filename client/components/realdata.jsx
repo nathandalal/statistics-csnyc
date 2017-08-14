@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from './tabs.jsx'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import NBA from './realdata/nba.jsx'
 import Weather from './realdata/weather.jsx'
@@ -17,12 +18,17 @@ export default class RealData extends React.Component {
         {path: null,        name: "How Do Computers Talk?",           icon: "table"},
         {path: "weather",   name: "Playground: Weather Forecast",     icon: "sun-o"},
         {path: "nba",       name: "Playground: NBA Rosters",          icon: "dribbble"}
-      ]
+      ],
+      data: {}
     }
   }
 
   componentWillMount() {
     window.scrollTo(0, 0)
+  }
+
+  componentDidMount() {
+    axios.get("http://api.open-notify.org/iss-now.json").then(({data}) => this.setState({data: data}))
   }
 
   render() {
@@ -35,6 +41,11 @@ export default class RealData extends React.Component {
 \n  },\
 \n  <span class="hljs-attr">"message"</span>: <span class="hljs-string">"success"</span>\
 \n}'
+    console.log(this.state.data)
+
+    console.log(window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)))
+
+
     return (
       <div>
         <h1 className="title">APIs for Live Data</h1>
@@ -79,9 +90,9 @@ export default class RealData extends React.Component {
                 for us to read their data.
               </h6>
               <h6>Here{"'"}s a sample response from clicking that link above.</h6>
-              <pre><code className="hljs json" dangerouslySetInnerHTML={{__html: sampleAPICode}}/></pre>
+              <code className="hljs json" style={{whiteSpace: "pre"}} dangerouslySetInnerHTML={{__html: window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)).value}}/>
 
-              <p>
+              <p style={{marginTop: 10}}>
                 Let{"'"}s say you had a variable called <code>data</code> that stored this information.
                 With JSON, if you wanted to get the <code>timestamp</code> part of the <code>data</code>,
                 you would simply write <code>data.timestamp</code>. Timestamps are actually stored as numbers like shown above 

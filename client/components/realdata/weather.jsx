@@ -6,14 +6,18 @@ import LeafletMap from './leaflet_map.jsx'
 export default class Weather extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      city: "Boston"
-    }
+    this.state = { city: "Boston", showModal: false, data: {} }
+
+    this.showModal = this.showModal.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
   componentDidMount() {
     this.makeRequest()
   }
+
+  showModal() { this.setState({ showModal: true }) }
+  hideModal() { this.setState({ showModal: false}) }
 
   makeRequest() {
     this.setState({data: null})
@@ -49,6 +53,9 @@ export default class Weather extends React.Component {
           This page demonstrates how to use API data to run mean, median, and mode analysis
           on the weather forecast for the next five days in any city.
         </h6>
+        <button className="button is-info" onClick={this.showModal}>View Data</button>
+        <hr/>
+        {this.renderModal()}
         <div className="field has-addons">
           <div className="control is-expanded">
             <input className="input is-fullwidth" type="text" value={this.state.city} 
@@ -63,7 +70,7 @@ export default class Weather extends React.Component {
           </div>
         </div>
 
-        {data ? 
+        {data && Object.keys(data).length !== 0 ? 
         <div>
             <div className="box content container column is-4" style={{maxWidth: "260px", margin: "20px auto"}}>
               <h5 style={{clear:"both"}}>Average Weather</h5>
@@ -104,5 +111,25 @@ export default class Weather extends React.Component {
 
     return <span>{weatherString} <span className="icon is-small"><i className={`fa fa-${iconStr}`} /></span></span>
 
+  }
+
+  renderModal() {
+    return (
+      <div className={`modal ${this.state.showModal ? "is-active" : ""}`}>
+        <div className="modal-background" onClick={this.hideModal}></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">JSON API Response</p>
+          </header>
+          <section className="modal-card-body">
+            <code className="hljs json" style={{whiteSpace: "pre"}} dangerouslySetInnerHTML={{__html: window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)).value}}/>
+          </section>
+          <footer className="modal-card-foot columns is-mobile">
+            <h6 className="column is-6">Data from this example is powered by OpenWeatherMap.</h6>
+            <div className="column is-6 has-text-centered"><a className="button is-primary" href="https://openweathermap.org/forecast5">View Data Source</a></div>
+          </footer>
+        </div>
+      </div>
+    )
   }
 }

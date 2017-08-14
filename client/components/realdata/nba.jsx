@@ -24,8 +24,13 @@ export default class NBA extends React.Component {
           modesString: ""
         }
       ],
-      quizMode: true
+      quizMode: true,
+      showModal: false,
+      data: {}
     }
+
+    this.showModal = this.showModal.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
   componentDidMount() { 
@@ -48,6 +53,9 @@ export default class NBA extends React.Component {
     })
     if(!this.state.rosters) this.loadNBARoster()
   }
+
+  showModal() { this.setState({ showModal: true }) }
+  hideModal() { this.setState({ showModal: false}) }
 
   loadNBARoster(waittime = 5000) {
     this.setState({rosterLoaded: false, rosters: []})
@@ -86,7 +94,8 @@ export default class NBA extends React.Component {
 
       if(this._isMounted) this.setState({
         rosterLoaded: moment(data.lastUpdatedOn, "YYYY-MM-DD hh:mm:ss A").subtract(10, 'seconds'),
-        rosters: rosters
+        rosters: rosters,
+        data: data
       })
 
     })
@@ -128,12 +137,19 @@ export default class NBA extends React.Component {
           {this.renderCard(Object.assign({}, currentRoster.typicalHeight), "Height")}
         </div>
 
-        <h6 className="has-text-centered" style={{paddingBottom: "20px"}}>
+        <h6 className="has-text-centered">
           We{"'"}ve given you the mean, median, and mode heights for <b>
           {this.state.team == "BRO" ? "BKN" : (this.state.team == "OKL" ? "OKC" : this.state.team)}</b>.&nbsp;
           {this.state.quizMode ? "Now go find the typical age and weight!" : 
           "You decided to not do the work and just see the answers for age and weight, so here they are."}
         </h6>
+
+        <h6 className="has-text-centered" style={{paddingBottom: "20px"}}>
+          <p>See all the JSON data we used to show these results!</p>
+          <button className="button is-info" onClick={this.showModal}>View Data</button>
+        </h6>
+
+        {this.renderModal()}
 
         <div className="columns container content">
           {this.renderCard(Object.assign({}, currentRoster.typicalAge), "Age")}
@@ -302,5 +318,25 @@ export default class NBA extends React.Component {
 
       { value: 'FAS', label: 'Free Agents'}
     ]
+  }
+
+  renderModal() {
+    return (
+      <div className={`modal ${this.state.showModal ? "is-active" : ""}`}>
+        <div className="modal-background" onClick={this.hideModal}></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">JSON API Response</p>
+          </header>
+          <section className="modal-card-body">
+            <code className="hljs json" style={{whiteSpace: "pre"}} dangerouslySetInnerHTML={{__html: window.hljs.highlight('json', JSON.stringify(this.state.data, null, 4)).value}}/>
+          </section>
+          <footer className="modal-card-foot columns is-mobile">
+            <h6 className="column is-6">Data from this example is powered by MySportsFeeds.</h6>
+            <div className="column is-6 has-text-centered"><a className="button is-primary" href="https://www.mysportsfeeds.com/data-feeds/api-docs">View Data Source</a></div>
+          </footer>
+        </div>
+      </div>
+    )
   }
 }
