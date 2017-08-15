@@ -89,7 +89,7 @@ export default class MedianQuiz extends React.Component {
         <p className="control has-icons-left has-icons-right">
           <input className={`input is-medium 
             ${this.isCorrectInput(info) || info.value == 0 || !(info.value) ? "" : "is-danger"}`} 
-            type="number" step="0.001" value={info.value} disabled={this.isCorrectInput(info)}
+            type="number" step="0.5" value={info.value} disabled={this.isCorrectInput(info)}
             onChange={((event) => {
               let stateChange = Object.assign({}, this.state)
               stateChange["questions"][info.questionIndex][info.key] = parseFloat(event.target.value)

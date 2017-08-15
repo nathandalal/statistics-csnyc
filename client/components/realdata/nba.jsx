@@ -113,6 +113,7 @@ export default class NBA extends React.Component {
         <p>
           <span className="icon is-large"><i className="fa fa-dribbble fa-spin"/></span>
         </p>
+        If the rosters haven{"'"}t arrived in 5 seconds, try <a href="/realdata/nba">reloading the page</a>.
       </div>
   }
 
