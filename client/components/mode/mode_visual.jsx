@@ -181,7 +181,7 @@ export default class ModeVisual extends React.Component {
           {this.renderAnimation()}
         </div>
 
-        <h6><strong>{this.state.currentIndex == this.props.list.length ? "Now that " : "Once "}</strong> 
+        <h6><strong>{this.state.activeKey == this.KEY_SENTINEL ? "Now that " : "Once "}</strong> 
           we have found all of our modes, we are done!
         </h6>
       </div>
