@@ -180,6 +180,7 @@ export default class SelectionSortVisual extends React.Component {
         <div className="box content">
           <h3 className="title">Visualization: Selection Sort</h3>
           <h5 className="subtitle">Find the minimum, swap to bring it to the front.</h5>
+          <small className="is-info">Everything before the black line is sorted.</small>
           <hr />
           {this.state.showControls ? this.renderAnimationController() : ""}
           {this.state.showControls ? <hr /> : ""}
