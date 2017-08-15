@@ -249,6 +249,7 @@ export default class SelectionSortVisual extends React.Component {
     return (
       <div style={{clear:"both"}}>
         <ListRenderer 
+          dividerIndex={this.state.currentOuterIndex < this.props.list.length ? (this.state.currentOuterIndex - 1) : -1}
           list={this.state.list} 
           activeIndex={this.state.makingSwap ? this.state.currentMinimumIndex : 
             (this.state.changingStartIndex ? this.state.currentOuterIndex : this.state.currentInnerIndex)}
