@@ -253,8 +253,8 @@ export default class NBA extends React.Component {
         <div className="box container column is-5" style={{maxWidth: "400px", height: "350px"}} >
           <h4>{title}</h4>
           <h6><small>
-            If you need help on the <Link to="/mean">mean</Link>, <Link to="/mean">median</Link>,
-            or <Link to="/mean">mode</Link>, we{"'"}re here for you.
+            If you need help on the <Link to="/mean">mean</Link>, <Link to="/median">median</Link>,
+            or <Link to="/mode">mode</Link>, we{"'"}re here for you.
           </small></h6>
           {renderInput({
             label: "Mean", icon: "list", 
@@ -277,6 +277,8 @@ export default class NBA extends React.Component {
     let dataObjKey = info.questionIndex == 0 ? "typicalAge" : "typicalWeight"
 
     if(info.key == "modes") {
+      console.log(this.state.rosters[this.state.team][dataObjKey].modes.sort((a, b) => a > b))
+
       let areSameArray = (l1, l2) => l1.length==l2.length && l1.every((v,i)=> v === l2[i])
       return areSameArray(
         this.state.questions[info.questionIndex].modes.sort((a, b) => a > b), 
